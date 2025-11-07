@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1" />
+  <title>TRX Mining Live</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="app">
+    <header class="topbar">
+      <div class="brand">
+        <div class="logo-circle">TRX</div>
+        <div class="brand-text">TRX Mining Live</div>
+      </div>
+      <div id="profileLabel" class="profile">Guest • Level 0</div>
+    </header>
+
+    <main class="content">
+      <!-- MINE -->
+      <section id="page-mine" class="page active">
+        <div class="card">
+          <div class="balance-row">
+            <div>
+              <div class="coin-label">TRX</div>
+              <div class="coin-amount" id="trxAmount">0.00</div>
+              <div class="small muted" id="priceLabel">1 TRX = 0.0006 USDT</div>
+            </div>
+            <div class="right-status">
+              <div id="globalProgressWrap" class="global-progress-wrap" style="display:none">
+                <div class="progress-bar small"><div id="globalProgressInner"></div></div>
+                <div id="globalProgressTimer" class="progress-timer small muted">...</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- miners list -->
+        <div id="minersGrid" class="miners-grid"></div>
+
+      </section>
+
+      <!-- TEAM -->
+      <section id="page-team" class="page">
+        <div class="card">
+          <h3>🤝 Team</h3>
+          <p class="muted">Share referral code only (no URLs).</p>
+          <div class="invite-row">
+            <input id="refLink" readonly value="" />
+            <button id="copyRefBtn" class="btn white">Copy Code</button>
+            <button id="fakeInviteBtn" class="btn purple">+ Add Fake Member</button>
+          </div>
+          <div class="team-stats" style="margin-top:10px">
+            <div>Total invites: <strong id="teamCount">0</strong></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ME -->
+      <section id="page-me" class="page">
+        <div class="card">
+          <h3>👤 My Wallet & Tools</h3>
+          <div class="me-grid">
+            <div>TRX: <strong id="meTRX">0.00</strong></div>
+            <div>USDT: <strong id="meUSDT">0.000000</strong></div>
+            <div>Speed: <strong id="speedLabel">1.5 TRX/H</strong></div>
+            <div>Working: <strong>24H</strong></div>
+          </div>
+
+          <div class="divider"></div>
+
+          <div class="convert-row">
+            <label>Convert TRX → USDT</label>
+            <div class="row">
+              <input id="convertInput" type="number" min="1" placeholder="Enter TRX amount" />
+              <button id="convertDo" class="btn">Convert</button>
+            </div>
+            <div id="convertResult" class="muted small"></div>
+          </div>
+
+          <div class="divider"></div>
+
+          <div class="withdraw-row">
+            <label>Withdraw (USDT)</label>
+            <div class="row">
+              <select id="withdrawMethod">
+                <option value="bitget">Bitget</option>
+                <option value="bybit">Bybit</option>
+              </select>
+              <input id="withdrawUID" placeholder="Receiver UID" />
+              <input id="withdrawAmount" type="number" step="0.01" placeholder="Amount (min 0.01)" />
+              <button id="submitWithdraw" class="btn btn-forest">Submit Withdraw</button>
+            </div>
+            <div id="withdrawMsg" class="muted small"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- VIP -->
+      <section id="page-vip" class="page">
+        <div class="card">
+          <h3>⭐ VIP Center</h3>
+          <p class="muted">Buy VIP to increase daily earnings.</p>
+
+          <div class="vip-grid">
+            <div class="vip-card">
+              <h4>VIP 1</h4>
+              <div>Fee: <strong>1.00 USDT</strong></div>
+              <div>Daily: <strong>0.50 USDT</strong></div>
+              <button class="btn white buy-vip" data-plan="vip1">Buy VIP 1</button>
+            </div>
+            <div class="vip-card">
+              <h4>VIP 2</h4>
+              <div>Fee: <strong>10.00 USDT</strong></div>
+              <div>Daily: <strong>6.00 USDT</strong></div>
+              <button class="btn white buy-vip" data-plan="vip2">Buy VIP 2</button>
+            </div>
+          </div>
+
+          <div class="vip-form" style="margin-top:12px">
+            <select id="vipExchange">
+              <option value="bitget">Bitget</option>
+              <option value="bybit">Bybit</option>
+            </select>
+            <input id="vipSenderUID" placeholder="Your exchange UID (sender)" />
+            <input id="vipMemo" placeholder="Transaction ID / Memo" />
+            <input id="vipFile" type="file" accept="image/*" />
+            <button id="vipSubmit" class="btn btn-violet">Submit for Review</button>
+            <div id="vipMsg" class="muted small" style="margin-top:8px"></div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <nav class="bottom-nav">
+      <button class="nav-btn active" data-target="page-mine" style="--c:#9fffd3">Mine</button>
+      <button class="nav-btn" data-target="page-team" style="--c:#fff7c6">Team</button>
+      <button class="nav-btn" data-target="page-me" style="--c:#d9f7ff">Me</button>
+      <button class="nav-btn" data-target="page-vip" style="--c:#f7ddff">VIP</button>
+    </nav>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
