@@ -42,41 +42,55 @@ body {
 }
 
 .user-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     margin-top: 15px;
+    gap: 10px;
 }
 
 .balance-card {
     background: linear-gradient(135deg, #00d4ff, #0099cc);
-    padding: 15px;
+    padding: 12px 15px;
     border-radius: 15px;
     color: #000;
+    flex: 1;
 }
 
 .balance-card h3 {
-    font-size: 14px;
+    font-size: 12px;
     margin-bottom: 5px;
 }
 
 .balance-card p {
-    font-size: 18px;
+    font-size: 16px;
     font-weight: bold;
+}
+
+.vip-status {
+    background: linear-gradient(135deg, #ffd700, #ffa500);
+    color: #000;
+    padding: 8px 12px;
+    border-radius: 15px;
+    font-weight: bold;
+    font-size: 12px;
 }
 
 /* Navigation */
 .navigation {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 10px;
+    gap: 8px;
     margin-bottom: 20px;
 }
 
 .nav-btn {
     background: rgba(255, 255, 255, 0.05);
     border: none;
-    padding: 15px 10px;
+    padding: 12px 8px;
     border-radius: 15px;
     color: #fff;
-    font-size: 12px;
+    font-size: 11px;
     cursor: pointer;
     transition: all 0.3s ease;
     display: flex;
@@ -130,9 +144,147 @@ body {
     font-size: 14px;
 }
 
-/* Cards */
-.stat-card, .miner-card, .invite-card, .info-card, 
-.conversion-card, .withdraw-card, .vip-plan, .payment-card {
+.section-subheader {
+    text-align: center;
+    margin: 25px 0 15px 0;
+}
+
+.section-subheader h3 {
+    color: #ffd700;
+    font-size: 18px;
+    margin-bottom: 5px;
+}
+
+.section-subheader p {
+    color: #888;
+    font-size: 13px;
+}
+
+/* TRX Mining Animation */
+.mining-animation {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 25px 0;
+    padding: 20px;
+}
+
+.trx-miner {
+    text-align: center;
+}
+
+.mining-circle {
+    position: relative;
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #00d4ff, #0099cc);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 15px auto;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+}
+
+.trx-logo {
+    font-size: 18px;
+    font-weight: bold;
+    color: #000;
+    z-index: 2;
+}
+
+.mining-beam {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    border: 2px solid #00ff88;
+    animation: beamRotate 3s linear infinite;
+}
+
+@keyframes beamRotate {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.crypto-particle {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    background: #ffd700;
+    border-radius: 50%;
+    animation: particleFloat 2s infinite ease-in-out;
+}
+
+.p1 { top: 10%; left: 25%; animation-delay: 0s; }
+.p2 { top: 70%; left: 80%; animation-delay: 0.5s; }
+.p3 { top: 80%; left: 30%; animation-delay: 1s; }
+.p4 { top: 20%; left: 70%; animation-delay: 1.5s; }
+
+@keyframes particleFloat {
+    0%, 100% {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+    }
+    50% {
+        transform: translateY(-15px) scale(1.2);
+        opacity: 0.7;
+    }
+}
+
+.mining-status {
+    color: #00d4ff;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+/* Stats Grid */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.stat-card {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 15px 10px;
+    border-radius: 12px;
+    text-align: center;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.stat-card i {
+    font-size: 20px;
+    color: #00d4ff;
+    margin-bottom: 8px;
+}
+
+.stat-card span {
+    display: block;
+    font-size: 11px;
+    color: #888;
+    margin-bottom: 5px;
+}
+
+.stat-card strong {
+    display: block;
+    font-size: 14px;
+    color: #00d4ff;
+}
+
+/* Mining Control */
+.mining-control {
+    margin-bottom: 20px;
+}
+
+.miner-card {
     background: rgba(255, 255, 255, 0.05);
     border-radius: 15px;
     padding: 20px;
@@ -141,36 +293,8 @@ body {
     border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-/* Mining Stats */
-.mining-stats {
-    margin-bottom: 20px;
-}
-
-.stat-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 0;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.stat-item:last-child {
-    border-bottom: none;
-}
-
-.stat-item span {
-    color: #888;
-    font-size: 14px;
-}
-
-.stat-item strong {
-    color: #00d4ff;
-    font-size: 16px;
-}
-
-/* Mining Control */
-.miner-card {
-    text-align: center;
+.main-miner {
+    border: 2px solid #00d4ff;
 }
 
 .miner-header {
@@ -182,34 +306,44 @@ body {
 
 .miner-header h3 {
     color: #00d4ff;
-    font-size: 18px;
+    font-size: 16px;
 }
 
 .status {
-    background: linear-gradient(135deg, #00ff88, #00cc66);
+    background: #00ff88;
     color: #000;
-    padding: 5px 10px;
-    border-radius: 20px;
-    font-size: 12px;
+    padding: 4px 8px;
+    border-radius: 10px;
+    font-size: 10px;
     font-weight: bold;
 }
 
+.status.inactive {
+    background: #666;
+    color: #fff;
+}
+
 .miner-details {
-    margin-bottom: 20px;
+    margin-bottom: 15px;
 }
 
 .miner-details p {
-    margin: 8px 0;
+    margin: 6px 0;
     color: #ccc;
+    font-size: 13px;
+}
+
+.miner-details strong {
+    color: #00d4ff;
 }
 
 /* Buttons */
 .action-btn {
     width: 100%;
-    padding: 15px;
+    padding: 12px;
     border: none;
-    border-radius: 12px;
-    font-size: 16px;
+    border-radius: 10px;
+    font-size: 14px;
     font-weight: 600;
     cursor: pointer;
     transition: all 0.3s ease;
@@ -217,6 +351,11 @@ body {
     align-items: center;
     justify-content: center;
     gap: 8px;
+    margin-bottom: 8px;
+}
+
+.action-btn:last-child {
+    margin-bottom: 0;
 }
 
 .claim-btn {
@@ -228,6 +367,34 @@ body {
     background: linear-gradient(135deg, #00b8e6, #0088b3);
     transform: translateY(-2px);
     box-shadow: 0 5px 15px rgba(0, 212, 255, 0.4);
+}
+
+.start-btn {
+    background: linear-gradient(135deg, #00ff88, #00cc66);
+    color: #000;
+}
+
+.start-btn:hover {
+    background: linear-gradient(135deg, #00e67a, #00b359);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 255, 136, 0.4);
+}
+
+.vip-claim-btn {
+    background: linear-gradient(135deg, #ffd700, #ffa500);
+    color: #000;
+}
+
+.vip-claim-btn:hover:not(:disabled) {
+    background: linear-gradient(135deg, #e6c300, #e69500);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(255, 215, 0, 0.4);
+}
+
+.vip-claim-btn:disabled {
+    background: #666;
+    cursor: not-allowed;
+    opacity: 0.6;
 }
 
 .convert-btn {
@@ -242,25 +409,47 @@ body {
 }
 
 .withdraw-btn {
+    background: linear-gradient(135deg, #9b59b6, #8e44ad);
+    color: #fff;
+}
+
+.withdraw-btn:hover {
+    background: linear-gradient(135deg, #8e44ad, #7d3c98);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(155, 89, 182, 0.4);
+}
+
+.vip-withdraw-btn {
     background: linear-gradient(135deg, #ffd700, #ffa500);
     color: #000;
 }
 
-.withdraw-btn:hover {
+.vip-withdraw-btn:hover {
     background: linear-gradient(135deg, #e6c300, #e69500);
     transform: translateY(-2px);
     box-shadow: 0 5px 15px rgba(255, 215, 0, 0.4);
 }
 
+.super-vip-withdraw-btn {
+    background: linear-gradient(135deg, #00ff88, #00cc66);
+    color: #000;
+}
+
+.super-vip-withdraw-btn:hover {
+    background: linear-gradient(135deg, #00e67a, #00b359);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 255, 136, 0.4);
+}
+
 .vip-buy-btn {
-    background: linear-gradient(135deg, #9b59b6, #8e44ad);
+    background: linear-gradient(135deg, #ff6b6b, #ff4757);
     color: #fff;
 }
 
 .vip-buy-btn:hover {
-    background: linear-gradient(135deg, #8e44ad, #7d3c98);
+    background: linear-gradient(135deg, #ff5252, #ff2e43);
     transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(155, 89, 182, 0.4);
+    box-shadow: 0 5px 15px rgba(255, 107, 107, 0.4);
 }
 
 .submit-payment-btn {
@@ -274,7 +463,33 @@ body {
     box-shadow: 0 5px 15px rgba(0, 255, 136, 0.4);
 }
 
-/* History */
+.redeem-btn {
+    background: linear-gradient(135deg, #ffd700, #ffa500);
+    color: #000;
+}
+
+.redeem-btn:hover {
+    background: linear-gradient(135deg, #e6c300, #e69500);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(255, 215, 0, 0.4);
+}
+
+/* VIP Miners */
+.vip-miners-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 15px;
+}
+
+.vip1-miner {
+    border: 2px solid #ffd700;
+}
+
+.vip2-miner {
+    border: 2px solid #00ff88;
+}
+
+/* History Sections */
 .history-section {
     margin-top: 25px;
 }
@@ -283,6 +498,9 @@ body {
     color: #00d4ff;
     margin-bottom: 15px;
     font-size: 18px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
 }
 
 .history-list {
@@ -291,6 +509,8 @@ body {
     padding: 15px;
     backdrop-filter: blur(10px);
     border: 1px solid rgba(255, 255, 255, 0.1);
+    max-height: 200px;
+    overflow-y: auto;
 }
 
 .history-item {
@@ -299,6 +519,7 @@ body {
     align-items: center;
     padding: 10px 0;
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    font-size: 13px;
 }
 
 .history-item:last-child {
@@ -307,7 +528,7 @@ body {
 
 .history-item .time {
     color: #888;
-    font-size: 12px;
+    font-size: 11px;
 }
 
 .empty-state {
@@ -322,7 +543,30 @@ body {
     opacity: 0.5;
 }
 
+.empty-state p {
+    margin: 5px 0;
+}
+
 /* Invite Section */
+.invite-card {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 15px;
+    padding: 20px;
+    margin-bottom: 15px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    text-align: center;
+}
+
+.invite-card h3 {
+    color: #00d4ff;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
 .invite-code {
     background: #000;
     padding: 15px;
@@ -337,17 +581,21 @@ body {
     font-family: monospace;
     font-size: 16px;
     color: #00d4ff;
+    font-weight: bold;
 }
 
 .copy-btn {
     background: #00d4ff;
     color: #000;
     border: none;
-    padding: 8px 15px;
+    padding: 8px 12px;
     border-radius: 8px;
     cursor: pointer;
     font-weight: bold;
     transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 5px;
 }
 
 .copy-btn:hover {
@@ -355,14 +603,59 @@ body {
     transform: scale(1.05);
 }
 
+.copy-btn.small {
+    padding: 6px 8px;
+    font-size: 12px;
+}
+
 .note {
     color: #888;
     font-size: 12px;
     text-align: center;
     margin-top: 10px;
+    line-height: 1.4;
+}
+
+/* Bonus Info */
+.bonus-card {
+    background: linear-gradient(135deg, #00ff88, #00cc66);
+    border-radius: 15px;
+    padding: 20px;
+    text-align: center;
+    color: #000;
+}
+
+.bonus-card h3 {
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.bonus-note {
+    margin-top: 10px;
+    font-weight: bold;
 }
 
 /* Account Info */
+.info-card {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 15px;
+    padding: 20px;
+    margin-bottom: 15px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.info-card h3 {
+    color: #00d4ff;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
 .info-grid {
     display: flex;
     flex-direction: column;
@@ -374,20 +667,45 @@ body {
     justify-content: space-between;
     align-items: center;
     padding: 8px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.info-item:last-child {
+    border-bottom: none;
 }
 
 .info-item span {
     color: #888;
+    font-size: 13px;
 }
 
 .info-item strong {
     color: #00d4ff;
+    font-size: 13px;
 }
 
 /* Conversion */
-.rate {
-    color: #00d4ff;
+.conversion-card {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 15px;
+    padding: 20px;
+    margin-bottom: 15px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
     text-align: center;
+}
+
+.conversion-card h3 {
+    color: #00d4ff;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.rate {
+    color: #ffd700;
     margin-bottom: 15px;
     font-weight: 600;
 }
@@ -399,12 +717,12 @@ body {
 }
 
 .conversion-input input {
-    padding: 15px;
+    padding: 12px;
     border: none;
     border-radius: 10px;
     background: rgba(255, 255, 255, 0.1);
     color: #fff;
-    font-size: 16px;
+    font-size: 14px;
     border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
@@ -414,18 +732,72 @@ body {
 }
 
 /* Withdrawal */
-.withdraw-option {
-    text-align: center;
+.withdraw-card {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 15px;
+    padding: 20px;
+    margin-bottom: 15px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-.option-header {
+.withdraw-card.normal {
+    border: 2px solid #666;
+}
+
+.withdraw-card.vip-fast {
+    border: 2px solid #ffd700;
+}
+
+.withdraw-card.super-vip {
+    border: 2px solid #00ff88;
+}
+
+.withdraw-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.withdraw-header h4 {
+    color: #00d4ff;
     display: flex;
     align-items: center;
-    justify-content: center;
-    gap: 10px;
+    gap: 8px;
+}
+
+.withdraw-badge {
+    background: #666;
+    color: #fff;
+    padding: 4px 8px;
+    border-radius: 8px;
+    font-size: 10px;
+    font-weight: bold;
+}
+
+.withdraw-badge.premium {
+    background: #ffd700;
+    color: #000;
+}
+
+.withdraw-badge.elite {
+    background: #00ff88;
+    color: #000;
+}
+
+.withdraw-info {
     margin-bottom: 15px;
+}
+
+.withdraw-info p {
+    margin: 6px 0;
+    color: #ccc;
+    font-size: 13px;
+}
+
+.withdraw-info strong {
     color: #00d4ff;
-    font-weight: 600;
 }
 
 .withdraw-input {
@@ -435,12 +807,12 @@ body {
 }
 
 .withdraw-input input {
-    padding: 15px;
+    padding: 12px;
     border: none;
     border-radius: 10px;
     background: rgba(255, 255, 255, 0.1);
     color: #fff;
-    font-size: 16px;
+    font-size: 14px;
     border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
@@ -449,20 +821,69 @@ body {
     border-color: #00d4ff;
 }
 
+.withdraw-note {
+    color: #888;
+    font-size: 11px;
+    margin-top: 10px;
+    text-align: center;
+}
+
+/* VIP Benefits */
+.benefits-card {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 15px;
+    padding: 20px;
+    margin-bottom: 20px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.benefits-card h3 {
+    color: #00d4ff;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.benefits-list {
+    list-style: none;
+}
+
+.benefits-list li {
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.benefits-list li:last-child {
+    border-bottom: none;
+}
+
+.benefits-list i {
+    color: #00ff88;
+}
+
 /* VIP Plans */
 .vip-plans {
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: 1fr;
     gap: 15px;
     margin-bottom: 25px;
 }
 
-.vip-plan {
+.vip-plan-card {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 15px;
+    padding: 20px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
     position: relative;
-    text-align: center;
 }
 
-.vip-plan.premium {
+.vip-plan-card.premium {
     border: 2px solid #ffd700;
 }
 
@@ -474,83 +895,203 @@ body {
     color: #000;
     padding: 5px 10px;
     border-radius: 15px;
-    font-size: 12px;
+    font-size: 10px;
     font-weight: bold;
 }
 
 .plan-header {
+    text-align: center;
     margin-bottom: 15px;
 }
 
 .plan-header h3 {
     color: #00d4ff;
-    font-size: 20px;
+    font-size: 18px;
     margin-bottom: 5px;
 }
 
 .plan-price {
-    font-size: 24px;
+    font-size: 22px;
     font-weight: bold;
     color: #ffd700;
 }
 
 .plan-features {
+    list-style: none;
     margin-bottom: 20px;
 }
 
-.plan-features p {
-    margin: 8px 0;
+.plan-features li {
+    padding: 6px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+}
+
+.plan-features li:last-child {
+    border-bottom: none;
+}
+
+.plan-features i {
+    color: #00ff88;
+}
+
+/* Payment Instructions */
+.instructions-card {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 15px;
+    padding: 20px;
+    margin-bottom: 20px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.instructions-card h3 {
+    color: #00d4ff;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    text-align: center;
+    justify-content: center;
+}
+
+.steps {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.step {
+    display: flex;
+    gap: 15px;
+}
+
+.step-number {
+    background: #00d4ff;
+    color: #000;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    flex-shrink: 0;
+}
+
+.step-content {
+    flex: 1;
+}
+
+.step-content h4 {
+    color: #00d4ff;
+    margin-bottom: 8px;
+    font-size: 15px;
+}
+
+.step-content p {
     color: #ccc;
+    font-size: 13px;
+    margin-bottom: 10px;
+}
+
+.payment-addresses {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.address {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 8px;
+}
+
+.address strong {
+    color: #00d4ff;
+    font-size: 12px;
+    min-width: 80px;
+}
+
+.address code {
+    font-family: monospace;
+    color: #ffd700;
+    flex: 1;
+}
+
+.payment-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.payment-form input,
+.payment-form select {
+    padding: 12px;
+    border: none;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+    font-size: 14px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.payment-form input:focus,
+.payment-form select:focus {
+    outline: none;
+    border-color: #00d4ff;
+}
+
+/* Bonus Redeem */
+.redeem-card {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 15px;
+    padding: 20px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    text-align: center;
+}
+
+.redeem-card h3 {
+    color: #00d4ff;
+    margin-bottom: 15px;
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 8px;
 }
 
-/* Payment Info */
-.payment-info h3 {
-    color: #00d4ff;
-    margin-bottom: 15px;
-    text-align: center;
-}
-
-.instruction {
-    text-align: center;
-    margin-bottom: 20px;
-    color: #ccc;
-    line-height: 1.5;
-}
-
-.payment-form {
+.redeem-input {
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    gap: 10px;
+    margin-bottom: 10px;
 }
 
-.form-group {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-}
-
-.form-group label {
-    color: #888;
-    font-size: 14px;
-}
-
-.form-group input {
-    padding: 15px;
+.redeem-input input {
+    padding: 12px;
     border: none;
     border-radius: 10px;
     background: rgba(255, 255, 255, 0.1);
     color: #fff;
-    font-size: 16px;
+    font-size: 14px;
     border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
-.form-group input:focus {
+.redeem-input input:focus {
     outline: none;
     border-color: #00d4ff;
+}
+
+.redeem-note {
+    color: #888;
+    font-size: 12px;
 }
 
 /* Notification */
@@ -560,16 +1101,39 @@ body {
     right: 20px;
     background: linear-gradient(135deg, #00d4ff, #0099cc);
     color: #000;
-    padding: 15px 20px;
+    padding: 0;
     border-radius: 10px;
     font-weight: 600;
     z-index: 1000;
     box-shadow: 0 5px 15px rgba(0, 212, 255, 0.3);
     animation: slideInRight 0.3s ease;
+    max-width: 300px;
 }
 
 .notification.hidden {
     display: none;
+}
+
+.notification-content {
+    padding: 15px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+}
+
+.notification-close {
+    background: none;
+    border: none;
+    color: #000;
+    font-size: 18px;
+    cursor: pointer;
+    padding: 0;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 @keyframes slideInRight {
@@ -593,12 +1157,35 @@ body {
         padding: 15px;
     }
     
+    .user-info {
+        flex-direction: column;
+        gap: 8px;
+    }
+    
+    .balance-card {
+        width: 100%;
+    }
+    
     .navigation {
         gap: 5px;
     }
     
     .nav-btn {
-        padding: 12px 5px;
-        font-size: 11px;
+        padding: 10px 5px;
+        font-size: 10px;
+    }
+    
+    .mining-circle {
+        width: 100px;
+        height: 100px;
+    }
+    
+    .stats-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 8px;
+    }
+    
+    .stat-card {
+        padding: 12px 8px;
     }
 }
