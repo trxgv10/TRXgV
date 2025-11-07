@@ -56,6 +56,24 @@
                     <p>Active miners and daily rewards</p>
                 </div>
 
+                <!-- Mining Animation -->
+                <div class="mining-animation">
+                    <div class="mining-rig">
+                        <div class="crypto-coin">
+                            <div class="coin-front">₿</div>
+                            <div class="coin-back">Ξ</div>
+                        </div>
+                        <div class="mining-particles">
+                            <div class="particle"></div>
+                            <div class="particle"></div>
+                            <div class="particle"></div>
+                            <div class="particle"></div>
+                            <div class="particle"></div>
+                        </div>
+                        <div class="mining-text">Mining Active...</div>
+                    </div>
+                </div>
+
                 <div class="miners-grid">
                     <!-- Free Miner -->
                     <div class="miner-card free">
@@ -228,6 +246,10 @@
                                 <span>Join Date:</span>
                                 <span id="joinDate">Today</span>
                             </div>
+                            <div class="detail-item">
+                                <span>Daily Withdraw Limit:</span>
+                                <strong id="dailyLimit">0.02 USDT</strong>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -257,13 +279,15 @@
                     <div class="withdraw-card normal">
                         <h4><i class="fas fa-user"></i> Normal Withdrawal</h4>
                         <p>Available: <strong id="normalBalance">0.00 USDT</strong></p>
+                        <p>Daily Limit: <strong id="dailyWithdrawLimit">0.02 USDT</strong></p>
+                        <p>Used Today: <strong id="usedToday">0.00 USDT</strong></p>
                         <div class="withdraw-input">
-                            <input type="number" id="normalWithdrawAmount" placeholder="USDT Amount" min="1">
+                            <input type="number" id="normalWithdrawAmount" placeholder="USDT Amount" min="0.01" max="0.02" step="0.01">
                             <button class="withdraw-btn normal-withdraw" id="normalWithdraw">
                                 <i class="fas fa-download"></i> Withdraw
                             </button>
                         </div>
-                        <p class="withdraw-note">💡 Only miner coins can be withdrawn</p>
+                        <p class="withdraw-note">💡 Daily limit: 0.02 USDT for normal users</p>
                     </div>
 
                     <!-- VIP Withdrawal -->
@@ -276,7 +300,7 @@
                                 <i class="fas fa-bolt"></i> Fast Withdraw
                             </button>
                         </div>
-                        <p class="withdraw-note">⚡ Instant processing for VIP users</p>
+                        <p class="withdraw-note">⚡ No daily limit for VIP users</p>
                     </div>
 
                     <!-- Super VIP Withdrawal -->
@@ -317,7 +341,7 @@
                         <h3><i class="fas fa-star"></i> VIP Benefits</h3>
                         <ul class="benefits-list">
                             <li><i class="fas fa-check"></i> Higher daily mining rewards</li>
-                            <li><i class="fas fa-check"></i> Fast withdrawal processing</li>
+                            <li><i class="fas fa-check"></i> No daily withdrawal limits</li>
                             <li><i class="fas fa-check"></i> Access to VIP miners</li>
                             <li><i class="fas fa-check"></i> Withdraw 6 USDT free bonus</li>
                             <li><i class="fas fa-check"></i> Priority customer support</li>
@@ -335,7 +359,7 @@
                         </div>
                         <ul class="plan-features">
                             <li><i class="fas fa-check"></i> 0.5 USDT Daily Income</li>
-                            <li><i class="fas fa-check"></i> Fast Withdraw Access</li>
+                            <li><i class="fas fa-check"></i> No Withdrawal Limits</li>
                             <li><i class="fas fa-check"></i> Withdraw 6 USDT Bonus</li>
                             <li><i class="fas fa-check"></i> VIP Miner 1 Access</li>
                         </ul>
@@ -406,21 +430,21 @@
             <div class="payment-instructions">
                 <div class="payment-step">
                     <h4>Step 1: Send Payment</h4>
-                    <p>Send <strong id="paymentAmount">1 USDT</strong> to:</p>
+                    <p>Send <strong id="paymentAmount">1 USDT</strong> to this UID:</p>
                     <div class="wallet-address">
-                        <code id="walletAddress">Loading wallet address...</code>
+                        <code id="walletAddress">Loading UID...</code>
                         <button class="copy-btn" onclick="copyWalletAddress()">
                             <i class="fas fa-copy"></i> Copy
                         </button>
                     </div>
-                    <p><strong>Network:</strong> <span id="paymentNetwork">TRC20</span></p>
                     <p><strong>Exchange:</strong> <span id="paymentExchange">Bitget</span></p>
                 </div>
 
                 <div class="payment-step">
-                    <h4>Step 2: Submit Your Details</h4>
+                    <h4>Step 2: Submit Your Account UID</h4>
+                    <p>After payment, enter the UID of the account you used to pay:</p>
                     <div class="user-details-form">
-                        <input type="text" id="userAccountId" placeholder="Your Bitget/Bybit Account ID">
+                        <input type="text" id="userAccountId" placeholder="Your Bitget/Bybit Account UID">
                         <input type="text" id="transactionHash" placeholder="Transaction Hash (Optional)">
                         <button class="submit-btn" id="submitPayment">
                             <i class="fas fa-paper-plane"></i> Submit to Telegram
@@ -436,9 +460,9 @@
                 <div class="important-notes">
                     <h4><i class="fas fa-exclamation-circle"></i> Important Notes:</h4>
                     <ul>
-                        <li>Send exact amount only</li>
-                        <li>Use TRC20 network for faster processing</li>
-                        <li>Your VIP will be activated within 5-10 minutes after payment</li>
+                        <li>Send exact amount only to the UID above</li>
+                        <li>Make sure to use correct UID: <strong id="correctUid">9879164714</strong> (Bitget) or <strong>269645993</strong> (Bybit)</li>
+                        <li>Your VIP will be activated within 5-10 minutes after payment verification</li>
                         <li>Contact @AdminSupport if you face any issues</li>
                     </ul>
                 </div>
