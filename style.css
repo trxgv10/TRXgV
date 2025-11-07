@@ -409,4 +409,692 @@ body {
 }
 
 .withdraw-btn {
-    background: linear-gradient(135deg
+    background: linear-gradient(135deg, #9b59b6, #8e44ad);
+    color: #fff;
+}
+
+.withdraw-btn:hover {
+    background: linear-gradient(135deg, #8e44ad, #7d3c98);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(155, 89, 182, 0.4);
+}
+
+.vip-withdraw-btn {
+    background: linear-gradient(135deg, #ffd700, #ffa500);
+    color: #000;
+}
+
+.vip-withdraw-btn:hover {
+    background: linear-gradient(135deg, #e6c300, #e69500);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(255, 215, 0, 0.4);
+}
+
+.super-vip-withdraw-btn {
+    background: linear-gradient(135deg, #00ff88, #00cc66);
+    color: #000;
+}
+
+.super-vip-withdraw-btn:hover {
+    background: linear-gradient(135deg, #00e67a, #00b359);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 255, 136, 0.4);
+}
+
+.vip-buy-btn {
+    background: linear-gradient(135deg, #ff6b6b, #ff4757);
+    color: #fff;
+}
+
+.vip-buy-btn:hover {
+    background: linear-gradient(135deg, #ff5252, #ff2e43);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(255, 107, 107, 0.4);
+}
+
+.submit-payment-btn {
+    background: linear-gradient(135deg, #00ff88, #00cc66);
+    color: #000;
+}
+
+.submit-payment-btn:hover {
+    background: linear-gradient(135deg, #00e67a, #00b359);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 255, 136, 0.4);
+}
+
+.redeem-btn {
+    background: linear-gradient(135deg, #ffd700, #ffa500);
+    color: #000;
+}
+
+.redeem-btn:hover {
+    background: linear-gradient(135deg, #e6c300, #e69500);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(255, 215, 0, 0.4);
+}
+
+/* VIP Miners */
+.vip-miners-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 15px;
+}
+
+.vip1-miner {
+    border: 2px solid #ffd700;
+}
+
+.vip2-miner {
+    border: 2px solid #00ff88;
+}
+
+/* History Sections */
+.history-section {
+    margin-top: 25px;
+}
+
+.history-section h3 {
+    color: #00d4ff;
+    margin-bottom: 15px;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.history-list {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 15px;
+    padding: 15px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+.history-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    font-size: 13px;
+}
+
+.history-item:last-child {
+    border-bottom: none;
+}
+
+.history-item .time {
+    color: #888;
+    font-size: 11px;
+}
+
+.empty-state {
+    text-align: center;
+    padding: 30px 20px;
+    color: #888;
+}
+
+.empty-state i {
+    font-size: 40px;
+    margin-bottom: 10px;
+    opacity: 0.5;
+}
+
+.empty-state p {
+    margin: 5px 0;
+}
+
+/* Invite Section */
+.invite-card {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 15px;
+    padding: 20px;
+    margin-bottom: 15px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    text-align: center;
+}
+
+.invite-card h3 {
+    color: #00d4ff;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.invite-code {
+    background: #000;
+    padding: 15px;
+    border-radius: 10px;
+    margin: 15px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.invite-code code {
+    font-family: monospace;
+    font-size: 16px;
+    color: #00d4ff;
+    font-weight: bold;
+}
+
+.copy-btn {
+    background: #00d4ff;
+    color: #000;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.copy-btn:hover {
+    background: #00b8e6;
+    transform: scale(1.05);
+}
+
+.copy-btn.small {
+    padding: 6px 8px;
+    font-size: 12px;
+}
+
+.note {
+    color: #888;
+    font-size: 12px;
+    text-align: center;
+    margin-top: 10px;
+    line-height: 1.4;
+}
+
+/* Bonus Info */
+.bonus-card {
+    background: linear-gradient(135deg, #00ff88, #00cc66);
+    border-radius: 15px;
+    padding: 20px;
+    text-align: center;
+    color: #000;
+}
+
+.bonus-card h3 {
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.bonus-note {
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+/* Account Info */
+.info-card {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 15px;
+    padding: 20px;
+    margin-bottom: 15px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.info-card h3 {
+    color: #00d4ff;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.info-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.info-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.info-item:last-child {
+    border-bottom: none;
+}
+
+.info-item span {
+    color: #888;
+    font-size: 13px;
+}
+
+.info-item strong {
+    color: #00d4ff;
+    font-size: 13px;
+}
+
+/* Conversion */
+.conversion-card {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 15px;
+    padding: 20px;
+    margin-bottom: 15px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    text-align: center;
+}
+
+.conversion-card h3 {
+    color: #00d4ff;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.rate {
+    color: #ffd700;
+    margin-bottom: 15px;
+    font-weight: 600;
+}
+
+.conversion-input {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.conversion-input input {
+    padding: 12px;
+    border: none;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+    font-size: 14px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.conversion-input input:focus {
+    outline: none;
+    border-color: #00d4ff;
+}
+
+/* Withdrawal */
+.withdraw-card {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 15px;
+    padding: 20px;
+    margin-bottom: 15px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.withdraw-card.normal {
+    border: 2px solid #666;
+}
+
+.withdraw-card.vip-fast {
+    border: 2px solid #ffd700;
+}
+
+.withdraw-card.super-vip {
+    border: 2px solid #00ff88;
+}
+
+.withdraw-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.withdraw-header h4 {
+    color: #00d4ff;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.withdraw-badge {
+    background: #666;
+    color: #fff;
+    padding: 4px 8px;
+    border-radius: 8px;
+    font-size: 10px;
+    font-weight: bold;
+}
+
+.withdraw-badge.premium {
+    background: #ffd700;
+    color: #000;
+}
+
+.withdraw-badge.elite {
+    background: #00ff88;
+    color: #000;
+}
+
+.withdraw-info {
+    margin-bottom: 15px;
+}
+
+.withdraw-info p {
+    margin: 6px 0;
+    color: #ccc;
+    font-size: 13px;
+}
+
+.withdraw-info strong {
+    color: #00d4ff;
+}
+
+.withdraw-input {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.withdraw-input input {
+    padding: 12px;
+    border: none;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+    font-size: 14px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.withdraw-input input:focus {
+    outline: none;
+    border-color: #00d4ff;
+}
+
+.withdraw-note {
+    color: #888;
+    font-size: 11px;
+    margin-top: 10px;
+    text-align: center;
+}
+
+/* VIP Benefits */
+.benefits-card {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 15px;
+    padding: 20px;
+    margin-bottom: 20px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.benefits-card h3 {
+    color: #00d4ff;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.benefits-list {
+    list-style: none;
+}
+
+.benefits-list li {
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.benefits-list li:last-child {
+    border-bottom: none;
+}
+
+.benefits-list i {
+    color: #00ff88;
+}
+
+/* VIP Plans */
+.vip-plans {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+.vip-plan-card {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 15px;
+    padding: 20px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    position: relative;
+}
+
+.vip-plan-card.premium {
+    border: 2px solid #ffd700;
+}
+
+.plan-badge {
+    position: absolute;
+    top: -10px;
+    right: 20px;
+    background: #ffd700;
+    color: #000;
+    padding: 5px 10px;
+    border-radius: 15px;
+    font-size: 10px;
+    font-weight: bold;
+}
+
+.plan-header {
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.plan-header h3 {
+    color: #00d4ff;
+    font-size: 18px;
+    margin-bottom: 5px;
+}
+
+.plan-price {
+    font-size: 22px;
+    font-weight: bold;
+    color: #ffd700;
+}
+
+.plan-features {
+    list-style: none;
+    margin-bottom: 20px;
+}
+
+.plan-features li {
+    padding: 6px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+}
+
+.plan-features li:last-child {
+    border-bottom: none;
+}
+
+.plan-features i {
+    color: #00ff88;
+}
+
+/* Payment Instructions */
+.instructions-card {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 15px;
+    padding: 20px;
+    margin-bottom: 20px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.instructions-card h3 {
+    color: #00d4ff;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    text-align: center;
+    justify-content: center;
+}
+
+.steps {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.step {
+    display: flex;
+    gap: 15px;
+}
+
+.step-number {
+    background: #00d4ff;
+    color: #000;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    flex-shrink: 0;
+}
+
+.step-content {
+    flex: 1;
+}
+
+.step-content h4 {
+    color: #00d4ff;
+    margin-bottom: 8px;
+    font-size: 15px;
+}
+
+.step-content p {
+    color: #ccc;
+    font-size: 13px;
+    margin-bottom: 10px;
+}
+
+.payment-addresses {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.address {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 8px;
+}
+
+.address strong {
+    color: #00d4ff;
+    font-size: 12px;
+    min-width: 80px;
+}
+
+.address code {
+    font-family: monospace;
+    color: #ffd700;
+    flex: 1;
+}
+
+.payment-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.payment-form input,
+.payment-form select {
+    padding: 12px;
+    border: none;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+    font-size: 14px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.payment-form input:focus,
+.payment-form select:focus {
+    outline: none;
+    border-color: #00d4ff;
+}
+
+/* Bonus Redeem */
+.redeem-card {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 15px;
+    padding: 20px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    text-align: center;
+}
+
+.redeem-card h3 {
+    color: #00d4ff;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.redeem-input {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.redeem-input input {
+    padding: 12px;
+    border: none;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+    font-size: 14px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.redeem-input input:focus {
+    outline: none;
+    border-color: #00d4ff;
+}
+
+.redeem-note {
+    color: #888;
+    font-size: 12px;
+}
+
+/* Notification */
+.notification {
+    position: fixed;
+    top:
