@@ -1,294 +1,604 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TRX Mining System</title>
-    <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-</head>
-<body>
-    <div class="container">
-        <!-- Header -->
-        <header class="header">
-            <div class="logo">
-                <h1><i class="fas fa-coins"></i> TRX Mining</h1>
-                <p>Earn Daily TRX & USDT Rewards</p>
-            </div>
-            <div class="user-info">
-                <div class="balance-card">
-                    <h3>Total Balance</h3>
-                    <p id="totalBalance">0.000000 USDT</p>
-                </div>
-            </div>
-        </header>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
-        <!-- Navigation -->
-        <nav class="navigation">
-            <button class="nav-btn active" data-section="mine">
-                <i class="fas fa-digging"></i>
-                <span>Mine</span>
-            </button>
-            <button class="nav-btn" data-section="team">
-                <i class="fas fa-users"></i>
-                <span>Team</span>
-            </button>
-            <button class="nav-btn" data-section="me">
-                <i class="fas fa-user"></i>
-                <span>Me</span>
-            </button>
-            <button class="nav-btn" data-section="vip">
-                <i class="fas fa-crown"></i>
-                <span>VIP</span>
-            </button>
-        </nav>
+body {
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #0f0f0f, #1a1a2e, #16213e);
+    color: #ffffff;
+    min-height: 100vh;
+    line-height: 1.6;
+}
 
-        <!-- Main Content -->
-        <main class="main-content">
-            <!-- Mine Section -->
-            <section id="mine" class="content-section active">
-                <div class="section-header">
-                    <h2>Mining Center</h2>
-                    <p>1 TRX = 0.0006 USDT</p>
-                </div>
+.container {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 15px;
+}
 
-                <!-- Mining Stats -->
-                <div class="mining-stats">
-                    <div class="stat-card">
-                        <div class="stat-item">
-                            <span>TRX Balance</span>
-                            <strong id="trxBalance">0.000000</strong>
-                        </div>
-                        <div class="stat-item">
-                            <span>USDT Balance</span>
-                            <strong id="usdtBalance">0.000000</strong>
-                        </div>
-                        <div class="stat-item">
-                            <span>Mining Speed</span>
-                            <strong>1.5 TRX/H</strong>
-                        </div>
-                    </div>
-                </div>
+/* Header */
+.header {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 20px;
+    padding: 20px;
+    margin-bottom: 20px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    text-align: center;
+}
 
-                <!-- Mining Control -->
-                <div class="mining-control">
-                    <div class="miner-card">
-                        <div class="miner-header">
-                            <h3>TRX Miner</h3>
-                            <span class="status active">Mining...</span>
-                        </div>
-                        <div class="miner-details">
-                            <p>Cycle: <strong>2 hours</strong></p>
-                            <p>Reward: <strong>5 TRX</strong></p>
-                            <p>Time Left: <strong id="miningTimer">01:59:52</strong></p>
-                        </div>
-                        <button class="action-btn claim-btn" id="claimMining">
-                            <i class="fas fa-download"></i> Claim Reward
-                        </button>
-                    </div>
-                </div>
+.logo h1 {
+    color: #00d4ff;
+    font-size: 24px;
+    margin-bottom: 5px;
+    text-shadow: 0 0 10px rgba(0, 212, 255, 0.5);
+}
 
-                <!-- Mining History -->
-                <div class="history-section">
-                    <h3>Mining History</h3>
-                    <div class="history-list" id="miningHistory">
-                        <div class="history-item">
-                            <span>Mining started</span>
-                            <span class="time" id="currentTime">Loading...</span>
-                        </div>
-                    </div>
-                </div>
-            </section>
+.logo p {
+    color: #888;
+    font-size: 14px;
+}
 
-            <!-- Team Section -->
-            <section id="team" class="content-section">
-                <div class="section-header">
-                    <h2>Team & Referrals</h2>
-                    <p>Invite friends and earn together</p>
-                </div>
+.user-info {
+    margin-top: 15px;
+}
 
-                <div class="team-stats">
-                    <div class="stat-card">
-                        <div class="stat-item">
-                            <span>Team Size</span>
-                            <strong id="teamSize">0</strong>
-                        </div>
-                        <div class="stat-item">
-                            <span>Referral Earnings</span>
-                            <strong id="referralEarnings">0.000000 USDT</strong>
-                        </div>
-                        <div class="stat-item">
-                            <span>Active Referrals</span>
-                            <strong id="activeReferrals">0</strong>
-                        </div>
-                    </div>
-                </div>
+.balance-card {
+    background: linear-gradient(135deg, #00d4ff, #0099cc);
+    padding: 15px;
+    border-radius: 15px;
+    color: #000;
+}
 
-                <div class="invite-section">
-                    <div class="invite-card">
-                        <h3>Your Invite Code</h3>
-                        <div class="invite-code">
-                            <code id="inviteCode">LOADING...</code>
-                            <button class="copy-btn" onclick="copyInviteCode()">
-                                <i class="fas fa-copy"></i> Copy
-                            </button>
-                        </div>
-                        <p class="note">Share this code to earn 10% from referrals</p>
-                    </div>
-                </div>
-            </section>
+.balance-card h3 {
+    font-size: 14px;
+    margin-bottom: 5px;
+}
 
-            <!-- Me Section -->
-            <section id="me" class="content-section">
-                <div class="section-header">
-                    <h2>My Wallet & Tools</h2>
-                    <p>Manage your funds and transactions</p>
-                </div>
+.balance-card p {
+    font-size: 18px;
+    font-weight: bold;
+}
 
-                <!-- Account Info -->
-                <div class="account-info">
-                    <div class="info-card">
-                        <h3>Account Details</h3>
-                        <div class="info-grid">
-                            <div class="info-item">
-                                <span>Account ID:</span>
-                                <strong id="accountId">857837</strong>
-                            </div>
-                            <div class="info-item">
-                                <span>VIP Status:</span>
-                                <strong id="vipStatus">No VIP</strong>
-                            </div>
-                            <div class="info-item">
-                                <span>Join Date:</span>
-                                <strong id="joinDate">Today</strong>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+/* Navigation */
+.navigation {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    margin-bottom: 20px;
+}
 
-                <!-- Conversion -->
-                <div class="conversion-section">
-                    <div class="conversion-card">
-                        <h3>Convert TRX → USDT</h3>
-                        <p class="rate">1 TRX = 0.10 USDT</p>
-                        <div class="conversion-input">
-                            <input type="number" id="trxToConvert" placeholder="Enter TRX amount" min="1" step="0.000001">
-                            <button class="action-btn convert-btn" id="convertTRX">
-                                <i class="fas fa-exchange-alt"></i> Convert
-                            </button>
-                        </div>
-                    </div>
-                </div>
+.nav-btn {
+    background: rgba(255, 255, 255, 0.05);
+    border: none;
+    padding: 15px 10px;
+    border-radius: 15px;
+    color: #fff;
+    font-size: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
 
-                <!-- Withdrawal -->
-                <div class="withdrawal-section">
-                    <h3>Withdraw (USDT)</h3>
-                    <div class="withdraw-card">
-                        <div class="withdraw-option">
-                            <div class="option-header">
-                                <i class="fab fa-bitcoin"></i>
-                                <span>Bitget</span>
-                            </div>
-                            <div class="withdraw-input">
-                                <input type="text" id="receiverUid" placeholder="Receiver UID">
-                                <input type="number" id="withdrawAmount" placeholder="Amount (min 0.0)" min="0" step="0.000001">
-                                <button class="action-btn withdraw-btn" id="submitWithdraw">
-                                    <i class="fas fa-paper-plane"></i> Submit Withdraw
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+.nav-btn.active {
+    background: linear-gradient(135deg, #00d4ff, #0099cc);
+    color: #000;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 212, 255, 0.3);
+}
 
-                <!-- Transaction History -->
-                <div class="history-section">
-                    <h3>Transaction History</h3>
-                    <div class="history-list" id="transactionHistory">
-                        <div class="empty-state">
-                            <i class="fas fa-receipt"></i>
-                            <p>No transactions yet</p>
-                        </div>
-                    </div>
-                </div>
-            </section>
+.nav-btn:hover:not(.active) {
+    background: rgba(255, 255, 255, 0.1);
+    transform: translateY(-1px);
+}
 
-            <!-- VIP Section -->
-            <section id="vip" class="content-section">
-                <div class="section-header">
-                    <h2>VIP Center</h2>
-                    <p>Upgrade for exclusive benefits</p>
-                </div>
+/* Content Sections */
+.content-section {
+    display: none;
+    animation: fadeIn 0.3s ease;
+}
 
-                <!-- VIP Plans -->
-                <div class="vip-plans">
-                    <!-- VIP 1 -->
-                    <div class="vip-plan">
-                        <div class="plan-header">
-                            <h3>VIP 1</h3>
-                            <div class="plan-price">1.00 USDT</div>
-                        </div>
-                        <div class="plan-features">
-                            <p><i class="fas fa-bolt"></i> Daily: 0.50 USDT</p>
-                            <p><i class="fas fa-rocket"></i> Faster Withdrawals</p>
-                            <p><i class="fas fa-star"></i> Priority Support</p>
-                        </div>
-                        <button class="action-btn vip-buy-btn" data-vip="1">
-                            <i class="fas fa-shopping-cart"></i> Buy VIP 1
-                        </button>
-                    </div>
+.content-section.active {
+    display: block;
+}
 
-                    <!-- VIP 2 -->
-                    <div class="vip-plan premium">
-                        <div class="plan-badge">Popular</div>
-                        <div class="plan-header">
-                            <h3>VIP 2</h3>
-                            <div class="plan-price">10.00 USDT</div>
-                        </div>
-                        <div class="plan-features">
-                            <p><i class="fas fa-bolt"></i> Daily: 6.00 USDT</p>
-                            <p><i class="fas fa-rocket"></i> Instant Withdrawals</p>
-                            <p><i class="fas fa-crown"></i> All VIP 1 Features</p>
-                            <p><i class="fas fa-gift"></i> Bonus Rewards</p>
-                        </div>
-                        <button class="action-btn vip-buy-btn" data-vip="2">
-                            <i class="fas fa-shopping-cart"></i> Buy VIP 2
-                        </button>
-                    </div>
-                </div>
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
 
-                <!-- VIP Payment Info -->
-                <div class="payment-info">
-                    <h3>VIP Payment</h3>
-                    <div class="payment-card">
-                        <p class="instruction">Pay to: <strong>Bitget UID: 9879164714</strong> or <strong>Bybit UID: 269645993</strong></p>
-                        
-                        <div class="payment-form">
-                            <div class="form-group">
-                                <label>Your Exchange UID (Sender)</label>
-                                <input type="text" id="senderUid" placeholder="Enter your Bitget/Bybit UID">
-                            </div>
-                            
-                            <div class="form-group">
-                                <label>Transaction ID / Memo</label>
-                                <input type="text" id="transactionId" placeholder="Enter transaction ID (optional)">
-                            </div>
+.section-header {
+    text-align: center;
+    margin-bottom: 25px;
+}
 
-                            <button class="action-btn submit-payment-btn" id="submitPayment">
-                                <i class="fas fa-check-circle"></i> Submit for Review
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </section>
-        </main>
-    </div>
+.section-header h2 {
+    color: #00d4ff;
+    font-size: 22px;
+    margin-bottom: 5px;
+}
 
-    <!-- Notification System -->
-    <div id="notification" class="notification hidden">
-        <span id="notificationMessage"></span>
-    </div>
+.section-header p {
+    color: #888;
+    font-size: 14px;
+}
 
-    <script src="script.js"></script>
-</body>
-</html>
+/* Cards */
+.stat-card, .miner-card, .invite-card, .info-card, 
+.conversion-card, .withdraw-card, .vip-plan, .payment-card {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 15px;
+    padding: 20px;
+    margin-bottom: 15px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Mining Stats */
+.mining-stats {
+    margin-bottom: 20px;
+}
+
+.stat-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.stat-item:last-child {
+    border-bottom: none;
+}
+
+.stat-item span {
+    color: #888;
+    font-size: 14px;
+}
+
+.stat-item strong {
+    color: #00d4ff;
+    font-size: 16px;
+}
+
+/* Mining Control */
+.miner-card {
+    text-align: center;
+}
+
+.miner-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.miner-header h3 {
+    color: #00d4ff;
+    font-size: 18px;
+}
+
+.status {
+    background: linear-gradient(135deg, #00ff88, #00cc66);
+    color: #000;
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.miner-details {
+    margin-bottom: 20px;
+}
+
+.miner-details p {
+    margin: 8px 0;
+    color: #ccc;
+}
+
+/* Buttons */
+.action-btn {
+    width: 100%;
+    padding: 15px;
+    border: none;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.claim-btn {
+    background: linear-gradient(135deg, #00d4ff, #0099cc);
+    color: #000;
+}
+
+.claim-btn:hover {
+    background: linear-gradient(135deg, #00b8e6, #0088b3);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 212, 255, 0.4);
+}
+
+.convert-btn {
+    background: linear-gradient(135deg, #ff6b6b, #ff4757);
+    color: #fff;
+}
+
+.convert-btn:hover {
+    background: linear-gradient(135deg, #ff5252, #ff2e43);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(255, 107, 107, 0.4);
+}
+
+.withdraw-btn {
+    background: linear-gradient(135deg, #ffd700, #ffa500);
+    color: #000;
+}
+
+.withdraw-btn:hover {
+    background: linear-gradient(135deg, #e6c300, #e69500);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(255, 215, 0, 0.4);
+}
+
+.vip-buy-btn {
+    background: linear-gradient(135deg, #9b59b6, #8e44ad);
+    color: #fff;
+}
+
+.vip-buy-btn:hover {
+    background: linear-gradient(135deg, #8e44ad, #7d3c98);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(155, 89, 182, 0.4);
+}
+
+.submit-payment-btn {
+    background: linear-gradient(135deg, #00ff88, #00cc66);
+    color: #000;
+}
+
+.submit-payment-btn:hover {
+    background: linear-gradient(135deg, #00e67a, #00b359);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 255, 136, 0.4);
+}
+
+/* History */
+.history-section {
+    margin-top: 25px;
+}
+
+.history-section h3 {
+    color: #00d4ff;
+    margin-bottom: 15px;
+    font-size: 18px;
+}
+
+.history-list {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 15px;
+    padding: 15px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.history-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.history-item:last-child {
+    border-bottom: none;
+}
+
+.history-item .time {
+    color: #888;
+    font-size: 12px;
+}
+
+.empty-state {
+    text-align: center;
+    padding: 30px 20px;
+    color: #888;
+}
+
+.empty-state i {
+    font-size: 40px;
+    margin-bottom: 10px;
+    opacity: 0.5;
+}
+
+/* Invite Section */
+.invite-code {
+    background: #000;
+    padding: 15px;
+    border-radius: 10px;
+    margin: 15px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.invite-code code {
+    font-family: monospace;
+    font-size: 16px;
+    color: #00d4ff;
+}
+
+.copy-btn {
+    background: #00d4ff;
+    color: #000;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+.copy-btn:hover {
+    background: #00b8e6;
+    transform: scale(1.05);
+}
+
+.note {
+    color: #888;
+    font-size: 12px;
+    text-align: center;
+    margin-top: 10px;
+}
+
+/* Account Info */
+.info-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.info-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 0;
+}
+
+.info-item span {
+    color: #888;
+}
+
+.info-item strong {
+    color: #00d4ff;
+}
+
+/* Conversion */
+.rate {
+    color: #00d4ff;
+    text-align: center;
+    margin-bottom: 15px;
+    font-weight: 600;
+}
+
+.conversion-input {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.conversion-input input {
+    padding: 15px;
+    border: none;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+    font-size: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.conversion-input input:focus {
+    outline: none;
+    border-color: #00d4ff;
+}
+
+/* Withdrawal */
+.withdraw-option {
+    text-align: center;
+}
+
+.option-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 15px;
+    color: #00d4ff;
+    font-weight: 600;
+}
+
+.withdraw-input {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.withdraw-input input {
+    padding: 15px;
+    border: none;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+    font-size: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.withdraw-input input:focus {
+    outline: none;
+    border-color: #00d4ff;
+}
+
+/* VIP Plans */
+.vip-plans {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+.vip-plan {
+    position: relative;
+    text-align: center;
+}
+
+.vip-plan.premium {
+    border: 2px solid #ffd700;
+}
+
+.plan-badge {
+    position: absolute;
+    top: -10px;
+    right: 20px;
+    background: #ffd700;
+    color: #000;
+    padding: 5px 10px;
+    border-radius: 15px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.plan-header {
+    margin-bottom: 15px;
+}
+
+.plan-header h3 {
+    color: #00d4ff;
+    font-size: 20px;
+    margin-bottom: 5px;
+}
+
+.plan-price {
+    font-size: 24px;
+    font-weight: bold;
+    color: #ffd700;
+}
+
+.plan-features {
+    margin-bottom: 20px;
+}
+
+.plan-features p {
+    margin: 8px 0;
+    color: #ccc;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+/* Payment Info */
+.payment-info h3 {
+    color: #00d4ff;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.instruction {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #ccc;
+    line-height: 1.5;
+}
+
+.payment-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.form-group label {
+    color: #888;
+    font-size: 14px;
+}
+
+.form-group input {
+    padding: 15px;
+    border: none;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+    font-size: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: #00d4ff;
+}
+
+/* Notification */
+.notification {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: linear-gradient(135deg, #00d4ff, #0099cc);
+    color: #000;
+    padding: 15px 20px;
+    border-radius: 10px;
+    font-weight: 600;
+    z-index: 1000;
+    box-shadow: 0 5px 15px rgba(0, 212, 255, 0.3);
+    animation: slideInRight 0.3s ease;
+}
+
+.notification.hidden {
+    display: none;
+}
+
+@keyframes slideInRight {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+    .container {
+        padding: 10px;
+    }
+    
+    .header {
+        padding: 15px;
+    }
+    
+    .navigation {
+        gap: 5px;
+    }
+    
+    .nav-btn {
+        padding: 12px 5px;
+        font-size: 11px;
+    }
+}
