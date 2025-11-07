@@ -1,16 +1,12 @@
 <!DOCTYPE html>
-<html lang="bn">
+<html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TRX Mining - Earn Daily Rewards</title>
-
-    <!-- Fonts & Icons -->
+    <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-
-    <!-- CSS -->
-    <link rel="stylesheet" href="style.css" />
 </head>
 <body>
     <div class="container">
@@ -281,6 +277,7 @@
                             <p>Used Today: <strong id="usedToday">0.00 USDT</strong></p>
                         </div>
                         <div class="withdraw-input">
+                            <input type="text" id="normalUID" placeholder="Receiver UID (e.g. exchange UID)">
                             <input type="number" id="normalWithdrawAmount" placeholder="Amount (max 0.02)" min="0.01" max="0.02" step="0.01">
                             <button class="action-btn withdraw-btn" id="normalWithdraw">
                                 <i class="fas fa-paper-plane"></i> Submit Withdraw
@@ -301,6 +298,7 @@
                             <p>Processing: <strong>Instant</strong></p>
                         </div>
                         <div class="withdraw-input">
+                            <input type="text" id="vipUID" placeholder="Receiver UID (e.g. exchange UID)">
                             <input type="number" id="vipWithdrawAmount" placeholder="Amount in USDT" min="1" step="0.01">
                             <button class="action-btn vip-withdraw-btn" id="vipWithdraw">
                                 <i class="fas fa-bolt"></i> Fast Withdraw
@@ -321,6 +319,7 @@
                             <p>Processing: <strong>Super Fast</strong></p>
                         </div>
                         <div class="withdraw-input">
+                            <input type="text" id="superUID" placeholder="Receiver UID (e.g. exchange UID)">
                             <input type="number" id="superVipWithdrawAmount" placeholder="Amount in USDT" min="1" step="0.01">
                             <button class="action-btn super-vip-withdraw-btn" id="superVipWithdraw">
                                 <i class="fas fa-rocket"></i> Super Fast Withdraw
@@ -489,7 +488,6 @@
         </div>
     </div>
 
-    <!-- JS -->
     <script src="script.js"></script>
 </body>
 </html>
