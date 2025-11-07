@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🚀 TRX Mining System - Mine, Team, Me, VIP</title>
+    <title>TRX Mining System</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
@@ -14,15 +14,12 @@
         <header class="header">
             <div class="logo">
                 <h1><i class="fas fa-coins"></i> TRX Mining</h1>
-                <p>Earn Daily USDT & TRX Rewards</p>
+                <p>Earn Daily TRX & USDT Rewards</p>
             </div>
             <div class="user-info">
                 <div class="balance-card">
-                    <h3>💰 Total Balance</h3>
-                    <p id="totalBalance">0.00 USDT</p>
-                </div>
-                <div class="vip-status">
-                    <span id="vipLevel">No VIP</span>
+                    <h3>Total Balance</h3>
+                    <p id="totalBalance">0.000000 USDT</p>
                 </div>
             </div>
         </header>
@@ -47,114 +44,58 @@
             </button>
         </nav>
 
-        <!-- Main Content Sections -->
+        <!-- Main Content -->
         <main class="main-content">
             <!-- Mine Section -->
             <section id="mine" class="content-section active">
                 <div class="section-header">
-                    <h2><i class="fas fa-digging"></i> Mining Dashboard</h2>
-                    <p>Active miners and daily rewards</p>
+                    <h2>Mining Center</h2>
+                    <p>1 TRX = 0.0006 USDT</p>
                 </div>
 
-                <!-- Mining Animation -->
-                <div class="mining-animation">
-                    <div class="mining-rig">
-                        <div class="crypto-coin">
-                            <div class="coin-front">₿</div>
-                            <div class="coin-back">Ξ</div>
+                <!-- Mining Stats -->
+                <div class="mining-stats">
+                    <div class="stat-card">
+                        <div class="stat-item">
+                            <span>TRX Balance</span>
+                            <strong id="trxBalance">0.000000</strong>
                         </div>
-                        <div class="mining-particles">
-                            <div class="particle"></div>
-                            <div class="particle"></div>
-                            <div class="particle"></div>
-                            <div class="particle"></div>
-                            <div class="particle"></div>
+                        <div class="stat-item">
+                            <span>USDT Balance</span>
+                            <strong id="usdtBalance">0.000000</strong>
                         </div>
-                        <div class="mining-text">Mining Active...</div>
+                        <div class="stat-item">
+                            <span>Mining Speed</span>
+                            <strong>1.5 TRX/H</strong>
+                        </div>
                     </div>
                 </div>
 
-                <div class="miners-grid">
-                    <!-- Free Miner -->
-                    <div class="miner-card free">
+                <!-- Mining Control -->
+                <div class="mining-control">
+                    <div class="miner-card">
                         <div class="miner-header">
-                            <h3>🆓 Free Miner</h3>
-                            <span class="status active">🟢 Active</span>
+                            <h3>TRX Miner</h3>
+                            <span class="status active">Mining...</span>
                         </div>
                         <div class="miner-details">
-                            <p><i class="fas fa-gift"></i> Bonus: <strong>6 USDT</strong></p>
-                            <p><i class="fas fa-clock"></i> Status: <span class="ready">Ready to Claim</span></p>
-                            <p class="note">🔓 VIP Required to Withdraw</p>
+                            <p>Cycle: <strong>2 hours</strong></p>
+                            <p>Reward: <strong>5 TRX</strong></p>
+                            <p>Time Left: <strong id="miningTimer">01:59:52</strong></p>
                         </div>
-                        <button class="claim-btn" id="claimFree">
-                            <i class="fas fa-download"></i> Claim 6 USDT
-                        </button>
-                    </div>
-
-                    <!-- TRX Miner -->
-                    <div class="miner-card trx">
-                        <div class="miner-header">
-                            <h3>⚡ TRX Miner</h3>
-                            <span class="status active">🟢 Active</span>
-                        </div>
-                        <div class="miner-details">
-                            <p><i class="fas fa-bolt"></i> Reward: <strong>1200 TRX</strong></p>
-                            <p><i class="fas fa-clock"></i> Next Claim: <span id="trxTimer">15 days</span></p>
-                            <p class="note">✅ All Users Can Withdraw TRX</p>
-                        </div>
-                        <button class="claim-btn" id="claimTRX">
-                            <i class="fas fa-download"></i> Claim TRX
-                        </button>
-                    </div>
-
-                    <!-- VIP Miner 1 -->
-                    <div class="miner-card gold" data-vip="1">
-                        <div class="miner-header">
-                            <h3>⭐ VIP Miner 1</h3>
-                            <span class="status active">🟢 Active</span>
-                        </div>
-                        <div class="miner-details">
-                            <p><i class="fas fa-chart-line"></i> Daily: <strong>0.5 USDT</strong></p>
-                            <p><i class="fas fa-clock"></i> Next Claim: <span id="vip1Timer">2 hours</span></p>
-                            <p class="note">🔒 VIP 1 Required</p>
-                        </div>
-                        <button class="claim-btn" id="claimVIP1">
-                            <i class="fas fa-download"></i> Claim Reward
-                        </button>
-                    </div>
-
-                    <!-- VIP Miner 2 -->
-                    <div class="miner-card platinum" data-vip="2">
-                        <div class="miner-header">
-                            <h3>👑 VIP Miner 2</h3>
-                            <span class="status active">🟢 Active</span>
-                        </div>
-                        <div class="miner-details">
-                            <p><i class="fas fa-chart-line"></i> Daily: <strong>2.0 USDT</strong></p>
-                            <p><i class="fas fa-clock"></i> Next Claim: <span id="vip2Timer">2 hours</span></p>
-                            <p class="note">🔒 VIP 2 Required</p>
-                        </div>
-                        <button class="claim-btn" id="claimVIP2">
+                        <button class="action-btn claim-btn" id="claimMining">
                             <i class="fas fa-download"></i> Claim Reward
                         </button>
                     </div>
                 </div>
 
-                <!-- Mining Statistics -->
-                <div class="stats-mini">
-                    <h3><i class="fas fa-chart-bar"></i> Mining Stats</h3>
-                    <div class="stats-grid-mini">
-                        <div class="stat-item">
-                            <span>Total Mined</span>
-                            <strong id="totalMinedMini">0.00 USDT</strong>
-                        </div>
-                        <div class="stat-item">
-                            <span>Active Days</span>
-                            <strong id="activeDaysMini">1</strong>
-                        </div>
-                        <div class="stat-item">
-                            <span>Today's Income</span>
-                            <strong id="todayIncome">0.00 USDT</strong>
+                <!-- Mining History -->
+                <div class="history-section">
+                    <h3>Mining History</h3>
+                    <div class="history-list" id="miningHistory">
+                        <div class="history-item">
+                            <span>Mining started</span>
+                            <span class="time" id="currentTime">Loading...</span>
                         </div>
                     </div>
                 </div>
@@ -163,62 +104,37 @@
             <!-- Team Section -->
             <section id="team" class="content-section">
                 <div class="section-header">
-                    <h2><i class="fas fa-users"></i> Team & Referrals</h2>
+                    <h2>Team & Referrals</h2>
                     <p>Invite friends and earn together</p>
                 </div>
 
                 <div class="team-stats">
-                    <div class="team-card">
-                        <h3><i class="fas fa-user-friends"></i> Team Statistics</h3>
-                        <div class="team-grid">
-                            <div class="team-stat">
-                                <span>Team Size</span>
-                                <strong id="teamSize">0</strong>
-                            </div>
-                            <div class="team-stat">
-                                <span>Referral Earnings</span>
-                                <strong id="referralEarnings">0.00 USDT</strong>
-                            </div>
-                            <div class="team-stat">
-                                <span>Active Referrals</span>
-                                <strong id="activeReferrals">0</strong>
-                            </div>
+                    <div class="stat-card">
+                        <div class="stat-item">
+                            <span>Team Size</span>
+                            <strong id="teamSize">0</strong>
+                        </div>
+                        <div class="stat-item">
+                            <span>Referral Earnings</span>
+                            <strong id="referralEarnings">0.000000 USDT</strong>
+                        </div>
+                        <div class="stat-item">
+                            <span>Active Referrals</span>
+                            <strong id="activeReferrals">0</strong>
                         </div>
                     </div>
                 </div>
 
                 <div class="invite-section">
                     <div class="invite-card">
-                        <h3><i class="fas fa-share-alt"></i> Your Invite Code</h3>
+                        <h3>Your Invite Code</h3>
                         <div class="invite-code">
                             <code id="inviteCode">LOADING...</code>
                             <button class="copy-btn" onclick="copyInviteCode()">
                                 <i class="fas fa-copy"></i> Copy
                             </button>
                         </div>
-                        <p class="invite-note">Share this code with friends to earn 10% of their mining rewards!</p>
-                    </div>
-
-                    <div class="join-team">
-                        <h3><i class="fas fa-user-plus"></i> Join Team</h3>
-                        <div class="join-input">
-                            <input type="text" id="joinCode" placeholder="Enter invite code">
-                            <button class="join-btn" id="joinTeam">
-                                <i class="fas fa-check"></i> Join
-                            </button>
-                        </div>
-                        <p class="join-note">Enter a friend's code to join their team</p>
-                    </div>
-                </div>
-
-                <div class="team-members">
-                    <h3><i class="fas fa-list"></i> Team Members</h3>
-                    <div class="members-list" id="membersList">
-                        <div class="empty-team">
-                            <i class="fas fa-users-slash"></i>
-                            <p>No team members yet</p>
-                            <p>Share your invite code to build your team!</p>
-                        </div>
+                        <p class="note">Share this code to earn 10% from referrals</p>
                     </div>
                 </div>
             </section>
@@ -226,102 +142,70 @@
             <!-- Me Section -->
             <section id="me" class="content-section">
                 <div class="section-header">
-                    <h2><i class="fas fa-user"></i> My Account</h2>
-                    <p>Manage your account and withdrawals</p>
+                    <h2>My Wallet & Tools</h2>
+                    <p>Manage your funds and transactions</p>
                 </div>
 
+                <!-- Account Info -->
                 <div class="account-info">
-                    <div class="account-card">
-                        <h3><i class="fas fa-id-card"></i> Account Details</h3>
-                        <div class="account-details">
-                            <div class="detail-item">
-                                <span>User ID:</span>
-                                <code id="userIdDisplay">LOADING...</code>
+                    <div class="info-card">
+                        <h3>Account Details</h3>
+                        <div class="info-grid">
+                            <div class="info-item">
+                                <span>Account ID:</span>
+                                <strong id="accountId">857837</strong>
                             </div>
-                            <div class="detail-item">
+                            <div class="info-item">
                                 <span>VIP Status:</span>
-                                <strong id="vipStatusDisplay">No VIP</strong>
+                                <strong id="vipStatus">No VIP</strong>
                             </div>
-                            <div class="detail-item">
+                            <div class="info-item">
                                 <span>Join Date:</span>
-                                <span id="joinDate">Today</span>
-                            </div>
-                            <div class="detail-item">
-                                <span>Daily Withdraw Limit:</span>
-                                <strong id="dailyLimit">0.02 USDT</strong>
+                                <strong id="joinDate">Today</strong>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Conversion Section -->
+                <!-- Conversion -->
                 <div class="conversion-section">
                     <div class="conversion-card">
-                        <h3><i class="fas fa-exchange-alt"></i> Convert TRX to USDT</h3>
+                        <h3>Convert TRX → USDT</h3>
+                        <p class="rate">1 TRX = 0.10 USDT</p>
                         <div class="conversion-input">
-                            <input type="number" id="trxAmount" placeholder="TRX Amount" min="1">
-                            <div class="conversion-rate">
-                                <span>1 TRX = 0.10 USDT</span>
-                            </div>
-                            <button class="convert-btn" id="convertTRX">
-                                <i class="fas fa-sync"></i> Convert Now
+                            <input type="number" id="trxToConvert" placeholder="Enter TRX amount" min="1" step="0.000001">
+                            <button class="action-btn convert-btn" id="convertTRX">
+                                <i class="fas fa-exchange-alt"></i> Convert
                             </button>
                         </div>
-                        <p class="conversion-note">Conversion rate: 1 TRX = 0.10 USDT</p>
                     </div>
                 </div>
 
-                <!-- Withdrawal Section -->
+                <!-- Withdrawal -->
                 <div class="withdrawal-section">
-                    <h3><i class="fas fa-wallet"></i> Withdraw Funds</h3>
-                    
-                    <!-- Normal Withdrawal -->
-                    <div class="withdraw-card normal">
-                        <h4><i class="fas fa-user"></i> Normal Withdrawal</h4>
-                        <p>Available: <strong id="normalBalance">0.00 USDT</strong></p>
-                        <p>Daily Limit: <strong id="dailyWithdrawLimit">0.02 USDT</strong></p>
-                        <p>Used Today: <strong id="usedToday">0.00 USDT</strong></p>
-                        <div class="withdraw-input">
-                            <input type="number" id="normalWithdrawAmount" placeholder="USDT Amount" min="0.01" max="0.02" step="0.01">
-                            <button class="withdraw-btn normal-withdraw" id="normalWithdraw">
-                                <i class="fas fa-download"></i> Withdraw
-                            </button>
+                    <h3>Withdraw (USDT)</h3>
+                    <div class="withdraw-card">
+                        <div class="withdraw-option">
+                            <div class="option-header">
+                                <i class="fab fa-bitcoin"></i>
+                                <span>Bitget</span>
+                            </div>
+                            <div class="withdraw-input">
+                                <input type="text" id="receiverUid" placeholder="Receiver UID">
+                                <input type="number" id="withdrawAmount" placeholder="Amount (min 0.0)" min="0" step="0.000001">
+                                <button class="action-btn withdraw-btn" id="submitWithdraw">
+                                    <i class="fas fa-paper-plane"></i> Submit Withdraw
+                                </button>
+                            </div>
                         </div>
-                        <p class="withdraw-note">💡 Daily limit: 0.02 USDT for normal users</p>
-                    </div>
-
-                    <!-- VIP Withdrawal -->
-                    <div class="withdraw-card vip">
-                        <h4><i class="fas fa-crown"></i> VIP Withdrawal</h4>
-                        <p>Available: <strong id="vipBalance">0.00 USDT</strong></p>
-                        <div class="withdraw-input">
-                            <input type="number" id="vipWithdrawAmount" placeholder="USDT Amount" min="1">
-                            <button class="withdraw-btn vip-withdraw" id="vipWithdraw">
-                                <i class="fas fa-bolt"></i> Fast Withdraw
-                            </button>
-                        </div>
-                        <p class="withdraw-note">⚡ No daily limit for VIP users</p>
-                    </div>
-
-                    <!-- Super VIP Withdrawal -->
-                    <div class="withdraw-card super-vip">
-                        <h4><i class="fas fa-rocket"></i> Super VIP Withdrawal</h4>
-                        <p>Available: <strong id="superVipBalance">0.00 USDT</strong></p>
-                        <div class="withdraw-input">
-                            <input type="number" id="superVipWithdrawAmount" placeholder="USDT Amount" min="1">
-                            <button class="withdraw-btn super-vip-withdraw" id="superVipWithdraw">
-                                <i class="fas fa-rocket"></i> Super Fast
-                            </button>
-                        </div>
-                        <p class="withdraw-note">🚀 Priority processing for Super VIP</p>
                     </div>
                 </div>
 
                 <!-- Transaction History -->
                 <div class="history-section">
-                    <h3><i class="fas fa-history"></i> Recent Transactions</h3>
+                    <h3>Transaction History</h3>
                     <div class="history-list" id="transactionHistory">
-                        <div class="empty-history">
+                        <div class="empty-state">
                             <i class="fas fa-receipt"></i>
                             <p>No transactions yet</p>
                         </div>
@@ -332,88 +216,67 @@
             <!-- VIP Section -->
             <section id="vip" class="content-section">
                 <div class="section-header">
-                    <h2><i class="fas fa-crown"></i> VIP Membership</h2>
-                    <p>Upgrade your account for exclusive benefits</p>
+                    <h2>VIP Center</h2>
+                    <p>Upgrade for exclusive benefits</p>
                 </div>
 
-                <div class="vip-benefits">
-                    <div class="benefits-card">
-                        <h3><i class="fas fa-star"></i> VIP Benefits</h3>
-                        <ul class="benefits-list">
-                            <li><i class="fas fa-check"></i> Higher daily mining rewards</li>
-                            <li><i class="fas fa-check"></i> No daily withdrawal limits</li>
-                            <li><i class="fas fa-check"></i> Access to VIP miners</li>
-                            <li><i class="fas fa-check"></i> Withdraw 6 USDT free bonus</li>
-                            <li><i class="fas fa-check"></i> Priority customer support</li>
-                            <li><i class="fas fa-check"></i> Exclusive bonus rewards</li>
-                        </ul>
-                    </div>
-                </div>
-
+                <!-- VIP Plans -->
                 <div class="vip-plans">
                     <!-- VIP 1 -->
-                    <div class="vip-plan-card">
+                    <div class="vip-plan">
                         <div class="plan-header">
-                            <h3>⭐ VIP Level 1</h3>
-                            <div class="plan-price">1 USDT</div>
+                            <h3>VIP 1</h3>
+                            <div class="plan-price">1.00 USDT</div>
                         </div>
-                        <ul class="plan-features">
-                            <li><i class="fas fa-check"></i> 0.5 USDT Daily Income</li>
-                            <li><i class="fas fa-check"></i> No Withdrawal Limits</li>
-                            <li><i class="fas fa-check"></i> Withdraw 6 USDT Bonus</li>
-                            <li><i class="fas fa-check"></i> VIP Miner 1 Access</li>
-                        </ul>
-                        <div class="payment-options">
-                            <button class="payment-btn bitget" data-vip="1" data-exchange="bitget">
-                                <i class="fab fa-bitcoin"></i> Pay with Bitget
-                            </button>
-                            <button class="payment-btn bybit" data-vip="1" data-exchange="bybit">
-                                <i class="fas fa-exchange-alt"></i> Pay with Bybit
-                            </button>
+                        <div class="plan-features">
+                            <p><i class="fas fa-bolt"></i> Daily: 0.50 USDT</p>
+                            <p><i class="fas fa-rocket"></i> Faster Withdrawals</p>
+                            <p><i class="fas fa-star"></i> Priority Support</p>
                         </div>
+                        <button class="action-btn vip-buy-btn" data-vip="1">
+                            <i class="fas fa-shopping-cart"></i> Buy VIP 1
+                        </button>
                     </div>
 
                     <!-- VIP 2 -->
-                    <div class="vip-plan-card premium">
-                        <div class="plan-badge">Most Popular</div>
+                    <div class="vip-plan premium">
+                        <div class="plan-badge">Popular</div>
                         <div class="plan-header">
-                            <h3>👑 VIP Level 2</h3>
-                            <div class="plan-price">10 USDT</div>
+                            <h3>VIP 2</h3>
+                            <div class="plan-price">10.00 USDT</div>
                         </div>
-                        <ul class="plan-features">
-                            <li><i class="fas fa-check"></i> 2.0 USDT Daily Income</li>
-                            <li><i class="fas fa-check"></i> Instant Withdraw Access</li>
-                            <li><i class="fas fa-check"></i> Withdraw 6 USDT Bonus</li>
-                            <li><i class="fas fa-check"></i> VIP Miner 1 & 2 Access</li>
-                            <li><i class="fas fa-check"></i> Super Fast Withdrawal</li>
-                            <li><i class="fas fa-check"></i> 24/7 Premium Support</li>
-                        </ul>
-                        <div class="payment-options">
-                            <button class="payment-btn bitget" data-vip="2" data-exchange="bitget">
-                                <i class="fab fa-bitcoin"></i> Pay with Bitget
-                            </button>
-                            <button class="payment-btn bybit" data-vip="2" data-exchange="bybit">
-                                <i class="fas fa-exchange-alt"></i> Pay with Bybit
-                            </button>
+                        <div class="plan-features">
+                            <p><i class="fas fa-bolt"></i> Daily: 6.00 USDT</p>
+                            <p><i class="fas fa-rocket"></i> Instant Withdrawals</p>
+                            <p><i class="fas fa-crown"></i> All VIP 1 Features</p>
+                            <p><i class="fas fa-gift"></i> Bonus Rewards</p>
                         </div>
+                        <button class="action-btn vip-buy-btn" data-vip="2">
+                            <i class="fas fa-shopping-cart"></i> Buy VIP 2
+                        </button>
                     </div>
                 </div>
 
-                <!-- VIP Statistics -->
-                <div class="vip-stats">
-                    <h3><i class="fas fa-chart-line"></i> VIP Earnings Potential</h3>
-                    <div class="stats-cards">
-                        <div class="vip-stat-card">
-                            <span>Daily Income</span>
-                            <strong id="vipDailyIncome">0.00 USDT</strong>
-                        </div>
-                        <div class="vip-stat-card">
-                            <span>Monthly Income</span>
-                            <strong id="vipMonthlyIncome">0.00 USDT</strong>
-                        </div>
-                        <div class="vip-stat-card">
-                            <span>Total VIP Earnings</span>
-                            <strong id="totalVipEarnings">0.00 USDT</strong>
+                <!-- VIP Payment Info -->
+                <div class="payment-info">
+                    <h3>VIP Payment</h3>
+                    <div class="payment-card">
+                        <p class="instruction">Pay to: <strong>Bitget UID: 9879164714</strong> or <strong>Bybit UID: 269645993</strong></p>
+                        
+                        <div class="payment-form">
+                            <div class="form-group">
+                                <label>Your Exchange UID (Sender)</label>
+                                <input type="text" id="senderUid" placeholder="Enter your Bitget/Bybit UID">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label>Transaction ID / Memo</label>
+                                <input type="text" id="transactionId" placeholder="Enter transaction ID (optional)">
+                            </div>
+
+                            <button class="action-btn submit-payment-btn" id="submitPayment">
+                                <i class="fas fa-check-circle"></i> Submit for Review
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -421,53 +284,9 @@
         </main>
     </div>
 
-    <!-- Payment Modal -->
-    <div id="paymentModal" class="modal">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <h3><i class="fas fa-credit-card"></i> Complete VIP Payment</h3>
-            
-            <div class="payment-instructions">
-                <div class="payment-step">
-                    <h4>Step 1: Send Payment</h4>
-                    <p>Send <strong id="paymentAmount">1 USDT</strong> to this UID:</p>
-                    <div class="wallet-address">
-                        <code id="walletAddress">Loading UID...</code>
-                        <button class="copy-btn" onclick="copyWalletAddress()">
-                            <i class="fas fa-copy"></i> Copy
-                        </button>
-                    </div>
-                    <p><strong>Exchange:</strong> <span id="paymentExchange">Bitget</span></p>
-                </div>
-
-                <div class="payment-step">
-                    <h4>Step 2: Submit Your Account UID</h4>
-                    <p>After payment, enter the UID of the account you used to pay:</p>
-                    <div class="user-details-form">
-                        <input type="text" id="userAccountId" placeholder="Your Bitget/Bybit Account UID">
-                        <input type="text" id="transactionHash" placeholder="Transaction Hash (Optional)">
-                        <button class="submit-btn" id="submitPayment">
-                            <i class="fas fa-paper-plane"></i> Submit to Telegram
-                        </button>
-                    </div>
-                </div>
-
-                <div class="payment-info">
-                    <p><strong>Your User ID:</strong> <code id="paymentUserId">Loading...</code></p>
-                    <p><strong>VIP Level:</strong> <span id="paymentVipLevel">1</span></p>
-                </div>
-
-                <div class="important-notes">
-                    <h4><i class="fas fa-exclamation-circle"></i> Important Notes:</h4>
-                    <ul>
-                        <li>Send exact amount only to the UID above</li>
-                        <li>Make sure to use correct UID: <strong id="correctUid">9879164714</strong> (Bitget) or <strong>269645993</strong> (Bybit)</li>
-                        <li>Your VIP will be activated within 5-10 minutes after payment verification</li>
-                        <li>Contact @AdminSupport if you face any issues</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
+    <!-- Notification System -->
+    <div id="notification" class="notification hidden">
+        <span id="notificationMessage"></span>
     </div>
 
     <script src="script.js"></script>
