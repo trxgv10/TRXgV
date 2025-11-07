@@ -1,111 +1,119 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1"/>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>TRXgV — Modern Mining Hub</title>
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div class="app">
-    <header class="topbar">
-      <div class="brand">
-        <div class="logo">TRXgV</div>
-        <div class="brand-text">TRXgV — Mining Hub</div>
+  <header>
+    <h1>TRXgV — Modern Mining Hub</h1>
+    <p>Smart Mining Dashboard</p>
+  </header>
+
+  <main>
+    <!-- BALANCE -->
+    <section class="balances">
+      <div class="card">
+        <h3>TRX Balance</h3>
+        <p id="trxBalance">0.000000</p>
       </div>
-      <div class="profile" id="profileLabel">Guest • Level 0</div>
-    </header>
+      <div class="card">
+        <h3>VIP Balance</h3>
+        <p id="vipBalance">N/A</p>
+      </div>
+    </section>
 
-    <main class="content">
-      <section class="panel balance-card">
-        <div class="left">
-          <div class="label">TRX Balance</div>
-          <div id="trxAmount" class="big-value">0.000000</div>
-          <div class="muted small" id="priceLabel">1 TRX = 0.0006 USDT</div>
+    <!-- MINERS -->
+    <section id="miners">
+      <h2>⛏️ Miners</h2>
+
+      <div class="miner" id="miner-standard">
+        <div class="icon green">TRX</div>
+        <div class="info">
+          <h3>Standard Miner</h3>
+          <p>Duration: 1 Day • Fee: 5 TRX</p>
+          <p id="timer1">00:00:00</p>
         </div>
-        <div class="right">
-          <div class="label">VIP Balance</div>
-          <div id="vipBalance" class="small-value">N/A</div>
-          <div class="muted small">Locked from free claims: <span id="lockedUSDT">0.000000</span> USDT</div>
+        <button class="mine-btn">Mining...</button>
+      </div>
+
+      <div class="miner gold" id="miner-golden">
+        <div class="icon gold">TRX</div>
+        <div class="info">
+          <h3>Golden Miner</h3>
+          <p>Duration: 15 Days • Fee: 1200 TRX</p>
+          <p id="timer2">00:00:00</p>
         </div>
-      </section>
+        <button class="mine-btn">Mining...</button>
+      </div>
 
-      <section class="panel miners-panel">
-        <h2>⛏️ Miners</h2>
-        <div id="minersGrid" class="grid"></div>
-      </section>
-
-      <section class="panel tools-panel">
-        <h2>⚙️ Tools</h2>
-
-        <div class="tool-row">
-          <div class="tool">
-            <div class="tool-title">Convert TRX → USDT</div>
-            <div class="row">
-              <input id="convertInput" type="number" min="0.000001" placeholder="TRX amount">
-              <button id="convertDo" class="btn primary">Convert</button>
-            </div>
-            <div id="convertResult" class="muted small"></div>
-          </div>
-
-          <div class="tool">
-            <div class="tool-title">Withdraw (USDT)</div>
-            <div class="row">
-              <select id="withdrawMethod">
-                <option value="bitget">Bitget</option>
-                <option value="bybit">Bybit</option>
-              </select>
-              <input id="withdrawUID" placeholder="UID">
-              <input id="withdrawAmount" type="number" step="0.01" placeholder="Amount USDT">
-            </div>
-            <div class="row">
-              <button id="submitWithdraw" class="btn green">Submit Withdraw</button>
-              <button id="vipFastBtn" class="btn gold" style="display:none">VIP Fast Withdraw</button>
-            </div>
-            <div id="withdrawMsg" class="muted small" style="margin-top:8px"></div>
-          </div>
+      <div class="miner red" id="miner-red">
+        <div class="icon red">USDT</div>
+        <div class="info">
+          <h3>Red Miner</h3>
+          <p>Duration: 10 Days • Fee: 10 USDT</p>
+          <p id="timer3">00:00:00</p>
         </div>
-      </section>
+        <button class="mine-btn">Mining...</button>
+      </div>
 
-      <section class="panel vip-panel">
-        <h2>🌟 VIP Center</h2>
-        <div class="vip-grid">
-          <div class="vip-card" data-plan="vip1">
-            <div class="vip-title">VIP 1</div>
-            <div class="vip-desc">Fee: <strong>1 USDT</strong> • Daily: <strong>0.50 USDT</strong></div>
-            <button class="btn glow buy-vip" data-plan="vip1">Buy VIP 1</button>
-          </div>
-          <div class="vip-card vip-hero" data-plan="vip2">
-            <div class="vip-title">VIP 2</div>
-            <div class="vip-desc">Fee: <strong>10 USDT</strong> • Daily: <strong>6 USDT</strong></div>
-            <button class="btn glow buy-vip" data-plan="vip2">Buy VIP 2</button>
-          </div>
+      <div class="miner blue" id="miner-free">
+        <div class="icon blue">USDT</div>
+        <div class="info">
+          <h3>Free 6 USDT Claim</h3>
+          <p>Claim once per day — VIP required for withdraw</p>
+          <p id="timer4">00:00:00</p>
         </div>
+        <button id="claimBtn">Collect</button>
+      </div>
+    </section>
 
-        <div class="vip-form">
-          <select id="vipExchange">
-            <option value="bitget">Bitget</option>
-            <option value="bybit">Bybit</option>
-          </select>
-          <input id="vipSenderUID" placeholder="Your exchange UID (sender)">
-          <input id="vipMemo" placeholder="Transaction ID / Memo">
-          <input id="vipFile" type="file" accept="image/*">
-          <button id="vipSubmit" class="btn violet">Submit Proof</button>
-          <div id="vipMsg" class="muted small" style="margin-top:8px"></div>
-        </div>
-      </section>
-    </main>
+    <!-- TOOLS -->
+    <section class="tools">
+      <h2>⚙️ Tools</h2>
+      <div class="tool-item">
+        <label>Convert TRX → USDT</label>
+        <input type="number" placeholder="TRX amount" id="trxInput" />
+        <button onclick="convertTRX()">Convert</button>
+      </div>
+      <div class="tool-item">
+        <label>Withdraw (USDT)</label>
+        <select id="exchange">
+          <option>Binance</option>
+          <option>Bitget</option>
+        </select>
+        <input type="text" placeholder="UID" id="uid" />
+        <input type="number" placeholder="Amount" id="amount" />
+        <button id="withdrawBtn">Submit Withdraw</button>
+      </div>
+    </section>
 
-    <nav class="bottom-nav">
-      <button class="nav-btn active" data-target="miners">Miners</button>
-      <button class="nav-btn" data-target="tools">Tools</button>
-      <button class="nav-btn" data-target="vip">VIP</button>
-    </nav>
-  </div>
+    <!-- VIP CENTER -->
+    <section id="vip-center">
+      <h2>🌟 VIP Center</h2>
+      <div class="vip-card">
+        <h3>VIP 1</h3>
+        <p>Fee: 1 USDT • Daily: 0.5 USDT</p>
+        <button onclick="buyVIP(1)">Buy VIP 1</button>
+      </div>
+      <div class="vip-card">
+        <h3>VIP 2</h3>
+        <p>Fee: 10 USDT • Daily: 6 USDT</p>
+        <button onclick="buyVIP(2)">Buy VIP 2</button>
+      </div>
+      <div class="vip-card advanced">
+        <h3>🚀 Super Fast VIP Withdraw</h3>
+        <p>Only VIP users can use this feature</p>
+        <button onclick="fastWithdraw()">VIP Withdraw</button>
+      </div>
+    </section>
+  </main>
 
-  <div id="toast" class="toast hidden"></div>
+  <footer>
+    <p>© 2025 TRXgV Mining Hub</p>
+  </footer>
 
   <script src="script.js"></script>
 </body>
