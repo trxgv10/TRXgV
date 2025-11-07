@@ -7,7 +7,7 @@ class MiningSystem {
         };
         this.miningInterval = null;
         this.vipTimers = {};
-        this.redeemCodes = this.generateRedeemCodes();
+        this.redeemCodes = this.loadRedeemCodes();
         this.initializeApp();
     }
 
@@ -39,7 +39,8 @@ class MiningSystem {
             vipClaims: {
                 vip1: null,
                 vip2: null
-            }
+            },
+            usedRedeemCodes: []
         };
 
         if (saved) {
@@ -53,6 +54,75 @@ class MiningSystem {
         }
         
         return defaultData;
+    }
+
+    loadRedeemCodes() {
+        let codes = localStorage.getItem('redeemCodes');
+        if (!codes) {
+            codes = this.generateRedeemCodes();
+        } else {
+            codes = JSON.parse(codes);
+        }
+        return codes;
+    }
+
+    generateRedeemCodes() {
+        const codes = [
+            { code: "VIP10-7A8B9C2D", value: 10, used: false },
+            { code: "VIP10-3E4F5G6H", value: 10, used: false },
+            { code: "VIP10-8I9J0K1L", value: 10, used: false },
+            { code: "VIP10-2M3N4O5P", value: 10, used: false },
+            { code: "VIP10-6Q7R8S9T", value: 10, used: false },
+            { code: "VIP10-1U2V3W4X", value: 10, used: false },
+            { code: "VIP10-5Y6Z7A8B", value: 10, used: false },
+            { code: "VIP10-9C0D1E2F", value: 10, used: false },
+            { code: "VIP10-4G5H6I7J", value: 10, used: false },
+            { code: "VIP10-8K9L0M1N", value: 10, used: false },
+            { code: "VIP10-2O3P4Q5R", value: 10, used: false },
+            { code: "VIP10-6S7T8U9V", value: 10, used: false },
+            { code: "VIP10-1W2X3Y4Z", value: 10, used: false },
+            { code: "VIP10-5A6B7C8D", value: 10, used: false },
+            { code: "VIP10-9E0F1G2H", value: 10, used: false },
+            { code: "VIP10-3I4J5K6L", value: 10, used: false },
+            { code: "VIP10-7M8N9O0P", value: 10, used: false },
+            { code: "VIP10-2Q3R4S5T", value: 10, used: false },
+            { code: "VIP10-6U7V8W9X", value: 10, used: false },
+            { code: "VIP10-1Y2Z3A4B", value: 10, used: false },
+            { code: "VIP10-5C6D7E8F", value: 10, used: false },
+            { code: "VIP10-9G0H1I2J", value: 10, used: false },
+            { code: "VIP10-4K5L6M7N", value: 10, used: false },
+            { code: "VIP10-8O9P0Q1R", value: 10, used: false },
+            { code: "VIP10-2S3T4U5V", value: 10, used: false },
+            { code: "VIP10-6W7X8Y9Z", value: 10, used: false },
+            { code: "VIP10-1A2B3C4D", value: 10, used: false },
+            { code: "VIP10-5E6F7G8H", value: 10, used: false },
+            { code: "VIP10-9I0J1K2L", value: 10, used: false },
+            { code: "VIP10-3M4N5O6P", value: 10, used: false },
+            { code: "VIP10-7Q8R9S0T", value: 10, used: false },
+            { code: "VIP10-2U3V4W5X", value: 10, used: false },
+            { code: "VIP10-6Y7Z8A9B", value: 10, used: false },
+            { code: "VIP10-1C2D3E4F", value: 10, used: false },
+            { code: "VIP10-5G6H7I8J", value: 10, used: false },
+            { code: "VIP10-9K0L1M2N", value: 10, used: false },
+            { code: "VIP10-4O5P6Q7R", value: 10, used: false },
+            { code: "VIP10-8S9T0U1V", value: 10, used: false },
+            { code: "VIP10-2W3X4Y5Z", value: 10, used: false },
+            { code: "VIP10-6A7B8C9D", value: 10, used: false },
+            { code: "VIP10-1E2F3G4H", value: 10, used: false },
+            { code: "VIP10-5I6J7K8L", value: 10, used: false },
+            { code: "VIP10-9M0N1O2P", value: 10, used: false },
+            { code: "VIP10-3Q4R5S6T", value: 10, used: false },
+            { code: "VIP10-7U8V9W0X", value: 10, used: false },
+            { code: "VIP10-2Y3Z4A5B", value: 10, used: false },
+            { code: "VIP10-6C7D8E9F", value: 10, used: false },
+            { code: "VIP10-1G2H3I4J", value: 10, used: false },
+            { code: "VIP10-5K6L7M8N", value: 10, used: false },
+            { code: "VIP10-9O0P1Q2R", value: 10, used: false }
+        ];
+        
+        // Save to localStorage
+        localStorage.setItem('redeemCodes', JSON.stringify(codes));
+        return codes;
     }
 
     generateUserId() {
@@ -71,18 +141,6 @@ class MiningSystem {
             localStorage.setItem('trxInviteCode', code);
         }
         return code;
-    }
-
-    generateRedeemCodes() {
-        const codes = [];
-        for (let i = 0; i < 50; i++) {
-            codes.push({
-                code: 'VIP10-' + Math.random().toString(36).substr(2, 8).toUpperCase(),
-                value: 10,
-                used: false
-            });
-        }
-        return codes;
     }
 
     saveUserData() {
@@ -137,6 +195,15 @@ class MiningSystem {
         
         // Bonus Redeem
         document.getElementById('submitRedeem').addEventListener('click', () => this.redeemBonusCode());
+        
+        // Admin Functions
+        document.getElementById('showAdminPanel').addEventListener('click', () => this.toggleAdminPanel());
+        document.getElementById('adminPassword').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') this.verifyAdmin();
+        });
+        document.getElementById('verifyAdmin').addEventListener('click', () => this.verifyAdmin());
+        document.getElementById('exportCodes').addEventListener('click', () => this.exportRedeemCodes());
+        document.getElementById('regenerateCodes').addEventListener('click', () => this.regenerateRedeemCodes());
     }
 
     startTimers() {
@@ -473,6 +540,12 @@ class MiningSystem {
             return;
         }
         
+        // Check if user already used this code
+        if (this.userData.usedRedeemCodes.includes(code)) {
+            this.showNotification('❌ You have already used this code!', 'error');
+            return;
+        }
+        
         const redeemCode = this.redeemCodes.find(c => c.code === code && !c.used);
         
         if (!redeemCode) {
@@ -480,8 +553,14 @@ class MiningSystem {
             return;
         }
         
+        // Mark code as used
         redeemCode.used = true;
+        this.userData.usedRedeemCodes.push(code);
         this.userData.usdtBalance += redeemCode.value;
+        
+        // Save updated codes
+        localStorage.setItem('redeemCodes', JSON.stringify(this.redeemCodes));
+        
         this.addTransaction('Bonus Redeem', redeemCode.value, 'USDT');
         this.saveUserData();
         
@@ -490,6 +569,57 @@ class MiningSystem {
         
         // Send to Telegram
         await this.sendToTelegram(`🎁 Bonus Code Redeemed\n👤 User: ${this.userData.userId}\n💰 Amount: ${redeemCode.value} USDT\n🔑 Code: ${code}\n⏰ Time: ${new Date().toLocaleString()}`);
+    }
+
+    // Admin Functions
+    toggleAdminPanel() {
+        const adminPanel = document.getElementById('adminPanel');
+        adminPanel.style.display = adminPanel.style.display === 'none' ? 'block' : 'none';
+    }
+
+    verifyAdmin() {
+        const password = document.getElementById('adminPassword').value;
+        if (password === 'admin123') { // Change this password as needed
+            document.getElementById('adminLogin').style.display = 'none';
+            document.getElementById('adminControls').style.display = 'block';
+            this.showNotification('✅ Admin access granted!', 'success');
+        } else {
+            this.showNotification('❌ Invalid admin password!', 'error');
+        }
+    }
+
+    exportRedeemCodes() {
+        const unusedCodes = this.redeemCodes.filter(code => !code.used);
+        const usedCodes = this.redeemCodes.filter(code => code.used);
+        
+        let codesText = '=== UNUSED REDEEM CODES (10 USDT Each) ===\n\n';
+        unusedCodes.forEach(code => {
+            codesText += `${code.code}\n`;
+        });
+        
+        codesText += '\n=== USED REDEEM CODES ===\n\n';
+        usedCodes.forEach(code => {
+            codesText += `${code.code} - USED\n`;
+        });
+        
+        codesText += `\nTotal Unused: ${unusedCodes.length}/50\nTotal Used: ${usedCodes.length}/50\nGenerated: ${new Date().toLocaleString()}`;
+        
+        const blob = new Blob([codesText], { type: 'text/plain' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `redeem-codes-${new Date().toISOString().split('T')[0]}.txt`;
+        a.click();
+        URL.revokeObjectURL(url);
+        
+        this.showNotification('✅ Redeem codes exported!', 'success');
+    }
+
+    regenerateRedeemCodes() {
+        if (confirm('Are you sure you want to regenerate all redeem codes? This will invalidate all existing codes!')) {
+            this.redeemCodes = this.generateRedeemCodes();
+            this.showNotification('✅ Redeem codes regenerated!', 'success');
+        }
     }
 
     async sendToTelegram(message) {
@@ -596,6 +726,18 @@ class MiningSystem {
         
         // Update VIP miner access
         this.updateVipMinersAccess();
+        
+        // Update admin stats
+        this.updateAdminStats();
+    }
+
+    updateAdminStats() {
+        const unusedCodes = this.redeemCodes.filter(code => !code.used).length;
+        const usedCodes = this.redeemCodes.filter(code => code.used).length;
+        
+        document.getElementById('unusedCodesCount').textContent = unusedCodes;
+        document.getElementById('usedCodesCount').textContent = usedCodes;
+        document.getElementById('totalCodesCount').textContent = this.redeemCodes.length;
     }
 
     updateVipMinersAccess() {
@@ -708,40 +850,4 @@ async function testTelegramConnection() {
 // Initialize the app
 document.addEventListener('DOMContentLoaded', () => {
     window.miningSystem = new MiningSystem();
-    
-    // Add test button for debugging (remove in production)
-    const testBtn = document.createElement('button');
-    testBtn.textContent = 'Test Telegram';
-    testBtn.style.position = 'fixed';
-    testBtn.style.bottom = '10px';
-    testBtn.style.right = '10px';
-    testBtn.style.zIndex = '1000';
-    testBtn.style.padding = '8px 12px';
-    testBtn.style.background = '#ff6b6b';
-    testBtn.style.color = 'white';
-    testBtn.style.border = 'none';
-    testBtn.style.borderRadius = '5px';
-    testBtn.style.cursor = 'pointer';
-    testBtn.style.fontSize = '10px';
-    testBtn.onclick = testTelegramConnection;
-    document.body.appendChild(testBtn);
 });
-
-// Export redeem codes for admin
-function exportRedeemCodes() {
-    const miningSystem = window.miningSystem;
-    if (miningSystem) {
-        const unusedCodes = miningSystem.redeemCodes.filter(code => !code.used);
-        const codesText = unusedCodes.map(code => `${code.code} - ${code.value} USDT`).join('\n');
-        
-        const blob = new Blob([codesText], { type: 'text/plain' });
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = 'redeem-codes.txt';
-        a.click();
-        URL.revokeObjectURL(url);
-        
-        miningSystem.showNotification('✅ Redeem codes exported!', 'success');
-    }
-}
