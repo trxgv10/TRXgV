@@ -1,119 +1,156 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>TRXgV — Modern Mining Hub</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>TRXgV — Mining Hub</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <header>
-    <h1>TRXgV — Modern Mining Hub</h1>
-    <p>Smart Mining Dashboard</p>
-  </header>
+  <div class="app">
+    <header class="top">
+      <div class="logo">TRXgV</div>
+      <div class="title">TRXgV — Mining Hub</div>
+      <div id="profileLabel" class="profile">Guest • Level 0</div>
+    </header>
 
-  <main>
-    <!-- BALANCE -->
-    <section class="balances">
-      <div class="card">
-        <h3>TRX Balance</h3>
-        <p id="trxBalance">0.000000</p>
-      </div>
-      <div class="card">
-        <h3>VIP Balance</h3>
-        <p id="vipBalance">N/A</p>
-      </div>
-    </section>
-
-    <!-- MINERS -->
-    <section id="miners">
-      <h2>⛏️ Miners</h2>
-
-      <div class="miner" id="miner-standard">
-        <div class="icon green">TRX</div>
-        <div class="info">
-          <h3>Standard Miner</h3>
-          <p>Duration: 1 Day • Fee: 5 TRX</p>
-          <p id="timer1">00:00:00</p>
+    <main class="main">
+      <section class="balances">
+        <div class="card">
+          <h4>TRX Balance</h4>
+          <div id="trxBalance" class="big">0.000000</div>
+          <div class="muted">1 TRX = <span id="rateLabel">0.0006</span> USDT</div>
         </div>
-        <button class="mine-btn">Mining...</button>
-      </div>
-
-      <div class="miner gold" id="miner-golden">
-        <div class="icon gold">TRX</div>
-        <div class="info">
-          <h3>Golden Miner</h3>
-          <p>Duration: 15 Days • Fee: 1200 TRX</p>
-          <p id="timer2">00:00:00</p>
+        <div class="card">
+          <h4>VIP Balance</h4>
+          <div id="vipBalance" class="big">N/A</div>
+          <div class="muted small">Locked from free claims: <span id="locked">0.000000</span></div>
         </div>
-        <button class="mine-btn">Mining...</button>
-      </div>
+      </section>
 
-      <div class="miner red" id="miner-red">
-        <div class="icon red">USDT</div>
-        <div class="info">
-          <h3>Red Miner</h3>
-          <p>Duration: 10 Days • Fee: 10 USDT</p>
-          <p id="timer3">00:00:00</p>
+      <section id="miners" class="card section">
+        <h3>⛏️ Miners</h3>
+
+        <div class="miner" id="miner-standard">
+          <div class="m-head"><div class="badge green">TRX</div><div class="m-title">Standard Miner</div><div class="m-badge">5 TRX</div></div>
+          <div class="m-body">
+            <div class="progress"><div class="progress-inner" id="p1"></div></div>
+            <div class="mtimer" id="timer1">Not started</div>
+            <div class="m-actions">
+              <button class="btn start" data-miner="standard">Start Mining</button>
+              <button class="btn collect" data-miner="standard">Collect</button>
+            </div>
+            <div class="muted small">Cycle: 1 day • Reward: 5 TRX</div>
+          </div>
         </div>
-        <button class="mine-btn">Mining...</button>
-      </div>
 
-      <div class="miner blue" id="miner-free">
-        <div class="icon blue">USDT</div>
-        <div class="info">
-          <h3>Free 6 USDT Claim</h3>
-          <p>Claim once per day — VIP required for withdraw</p>
-          <p id="timer4">00:00:00</p>
+        <div class="miner gold" id="miner-golden">
+          <div class="m-head"><div class="badge gold">TRX</div><div class="m-title">Golden Miner</div><div class="m-badge">1200 TRX</div></div>
+          <div class="m-body">
+            <div class="progress"><div class="progress-inner" id="p2"></div></div>
+            <div class="mtimer" id="timer2">Not started</div>
+            <div class="m-actions">
+              <button class="btn start" data-miner="golden">Start Mining</button>
+              <button class="btn collect" data-miner="golden">Collect</button>
+            </div>
+            <div class="muted small">Cycle: 15 days • Reward: configured</div>
+          </div>
         </div>
-        <button id="claimBtn">Collect</button>
-      </div>
-    </section>
 
-    <!-- TOOLS -->
-    <section class="tools">
-      <h2>⚙️ Tools</h2>
-      <div class="tool-item">
-        <label>Convert TRX → USDT</label>
-        <input type="number" placeholder="TRX amount" id="trxInput" />
-        <button onclick="convertTRX()">Convert</button>
-      </div>
-      <div class="tool-item">
-        <label>Withdraw (USDT)</label>
-        <select id="exchange">
-          <option>Binance</option>
-          <option>Bitget</option>
-        </select>
-        <input type="text" placeholder="UID" id="uid" />
-        <input type="number" placeholder="Amount" id="amount" />
-        <button id="withdrawBtn">Submit Withdraw</button>
-      </div>
-    </section>
+        <div class="miner red" id="miner-red">
+          <div class="m-head"><div class="badge red">USDT</div><div class="m-title">Red Miner</div><div class="m-badge">10 USDT</div></div>
+          <div class="m-body">
+            <div class="progress"><div class="progress-inner" id="p3"></div></div>
+            <div class="mtimer" id="timer3">Not started</div>
+            <div class="m-actions">
+              <button class="btn start" data-miner="red">Start Mining</button>
+              <button class="btn collect" data-miner="red">Collect</button>
+            </div>
+            <div class="muted small">Cycle: 10 days</div>
+          </div>
+        </div>
 
-    <!-- VIP CENTER -->
-    <section id="vip-center">
-      <h2>🌟 VIP Center</h2>
-      <div class="vip-card">
-        <h3>VIP 1</h3>
-        <p>Fee: 1 USDT • Daily: 0.5 USDT</p>
-        <button onclick="buyVIP(1)">Buy VIP 1</button>
-      </div>
-      <div class="vip-card">
-        <h3>VIP 2</h3>
-        <p>Fee: 10 USDT • Daily: 6 USDT</p>
-        <button onclick="buyVIP(2)">Buy VIP 2</button>
-      </div>
-      <div class="vip-card advanced">
-        <h3>🚀 Super Fast VIP Withdraw</h3>
-        <p>Only VIP users can use this feature</p>
-        <button onclick="fastWithdraw()">VIP Withdraw</button>
-      </div>
-    </section>
-  </main>
+        <div class="miner blue" id="miner-free">
+          <div class="m-head"><div class="badge blue">USDT</div><div class="m-title">Free 6 USDT Claim</div><div class="m-badge">6 USDT</div></div>
+          <div class="m-body">
+            <div class="progress"><div class="progress-inner" id="p4"></div></div>
+            <div class="mtimer" id="timer4">Not started</div>
+            <div class="m-actions">
+              <button id="claimBtn" class="btn start">Claim</button>
+            </div>
+            <div class="muted small">Claim: once per 24h — Withdraw requires VIP</div>
+          </div>
+        </div>
 
-  <footer>
-    <p>© 2025 TRXgV Mining Hub</p>
-  </footer>
+      </section>
+
+      <section id="tools" class="card section">
+        <h3>⚙️ Tools</h3>
+
+        <div class="tool-row">
+          <label>Convert TRX → USDT</label>
+          <input id="convertInput" type="number" min="0" placeholder="TRX amount" />
+          <button id="convertBtn" class="btn">Convert</button>
+        </div>
+
+        <div class="tool-row">
+          <label>Withdraw (USDT)</label>
+          <select id="withdrawMethod">
+            <option value="bitget">Bitget</option>
+            <option value="bybit">Bybit</option>
+            <option value="binance">Binance</option>
+          </select>
+          <input id="withdrawUID" placeholder="Receiver UID" />
+          <input id="withdrawAmount" type="number" placeholder="Amount (min 0.01)" step="0.01" />
+          <button id="withdrawSubmit" class="btn btn-forest">Submit Withdraw</button>
+        </div>
+
+        <div id="withdrawMsg" class="muted small"></div>
+      </section>
+
+      <section id="vip" class="card section">
+        <h3>🌟 VIP Center</h3>
+
+        <div class="vip-grid">
+          <div class="vip-card">
+            <h4>VIP 1</h4>
+            <p>Fee: 1 USDT — Daily payout: 0.50 USDT</p>
+            <button class="btn buy-vip" data-vip="1">Buy VIP 1</button>
+          </div>
+
+          <div class="vip-card">
+            <h4>VIP 2</h4>
+            <p>Fee: 10 USDT — Daily payout: 6 USDT</p>
+            <button class="btn buy-vip" data-vip="2">Buy VIP 2</button>
+          </div>
+
+          <div class="vip-card advanced">
+            <h4>VIP Fast Withdraw</h4>
+            <p>Only VIP users may use the instant Binance withdraw</p>
+            <button id="fastWithdrawBtn" class="btn">Fast VIP Withdraw</button>
+          </div>
+        </div>
+
+        <div class="muted small">Pay to Bitget UID: <strong id="bitgetUID">9879164714</strong> or Bybit UID: <strong id="bybitUID">269645993</strong></div>
+        <div class="muted small">Control bot (demo) will react to commands.</div>
+      </section>
+
+      <section id="team" class="card section">
+        <h3>🤝 Team / Referral</h3>
+        <div>Total invites: <strong id="teamCount">0</strong></div>
+        <div class="invite-row">
+          <input id="refCode" readonly />
+          <button id="copyRef" class="btn">Copy Code</button>
+          <button id="fakeInvite" class="btn">+ Add Fake Member</button>
+        </div>
+      </section>
+
+    </main>
+
+    <footer class="foot">
+      <div>© 2025 TRXgV • Demo — Replace token with real on Render env</div>
+    </footer>
+  </div>
 
   <script src="script.js"></script>
 </body>
